@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public UserInfoData UserInfoData;
+    //public UserInfoData UserInfoData;
 
     public GameStep gameStep;
 
@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
 
-        StartCoroutineMethod(TableBase.LoadAllDataTable());
+        //StartCoroutineMethod(TableBase.LoadAllDataTable());
 
         Initialize();
 
@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
 
     public void Initialize()
     {
-        UserInfoData = new UserInfoData();
-        UserInfoData.InitData();
-        UserInfoData.SaveData();
+        //UserInfoData = new UserInfoData();
+        //UserInfoData.InitData();
+        //UserInfoData.SaveData();
     }
 
 #region Coroutine
