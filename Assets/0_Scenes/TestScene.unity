@@ -275,10 +275,10 @@ RectTransform:
   - {fileID: 1228939809}
   m_Father: {fileID: 1156845049}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -833, y: 443}
-  m_SizeDelta: {x: 182.8449, y: 137.6977}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 127, y: -97}
+  m_SizeDelta: {x: 182.84491, y: 137.6977}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &777128166
 MonoBehaviour:
@@ -851,16 +851,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7a10af9caa5bf954eb964ad70777cc74, type: 2}
   - {fileID: 11400000, guid: c77d275f019506445a938fc7850fd16e, type: 2}
   - {fileID: 11400000, guid: 5fff5c630ed3c1440b95998cdafb2cff, type: 2}
-  - {fileID: 11400000, guid: 5fff5c630ed3c1440b95998cdafb2cff, type: 2}
-  - {fileID: 11400000, guid: 5fff5c630ed3c1440b95998cdafb2cff, type: 2}
-  - {fileID: 11400000, guid: 5fff5c630ed3c1440b95998cdafb2cff, type: 2}
-  TargetRoomCount: 3
+  TargetRoomCount: 5
   GenerateOnStart: 1
   OverlapMask:
     serializedVersion: 2
     m_Bits: 2048
   BoundsPadding: 0.1
   Root: {fileID: 1237144583}
+  HubCandidates:
+  - {fileID: 11400000, guid: fea312c266878a740b4c96ec5b70efb2, type: 2}
+  RequiredHubDoorCount: 4
+  AllowedHubDoorTypes: 
+  RequiredHubTag: 
+  PreferMoreDoors: 1
+  PreferHigherHubAffinity: 1
+  HubOnlyStar: 1
+  MaxTriesPerSocket: 20
 --- !u!4 &1633625316
 Transform:
   m_ObjectHideFlags: 0

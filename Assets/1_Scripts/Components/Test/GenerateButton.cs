@@ -8,6 +8,6 @@ public class GenerateButton : MonoBehaviour
 
     public void OnClickGenerate()
     {
-        Generator.Generate();
+        Generator.GenerateHubAuto();
     }
 }
