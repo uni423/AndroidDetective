@@ -2,6 +2,13 @@
 using System.Linq;
 using UnityEngine;
 
+[System.Serializable]
+public class EndCapDefinition
+{
+    public DoorType Type;       // 이 타입의 문을 막을 때 사용
+    public GameObject Prefab;   // DoorSocket 1개만 가진 “막개” 프리팹(ProcBounds 트리거 포함)
+}
+
 public class LevelGenerator : MonoBehaviour
 {
     [Header("카탈로그(붙일 방들)")]
@@ -29,11 +36,15 @@ public class LevelGenerator : MonoBehaviour
     public bool HubOnlyStar = true;            // true: 허브에 붙인 방에서 더 확장 X
     public int MaxTriesPerSocket = 20;         // 각 소켓마다 시도 제한
 
+    [Header("End-Cap (남는 문 막기)")]
+    public List<EndCapDefinition> EndCaps;  // 타입별 막개 목록
+
     // 내부 상태
     private readonly List<GameObject> _placed = new();
 
     private void Start()
     {
+        Debug.Log(" Start");
         if (GenerateOnStart) GenerateHubAuto(); // 일반 프론티어 모드(원하면 사용)
     }
 
@@ -118,17 +129,61 @@ public class LevelGenerator : MonoBehaviour
     {
         if (rng == null) rng = new System.Random();
 
-        // 1) 허브 배치
         var hub = PlaceRoom(hubDef, Vector3.zero, Quaternion.identity);
-
-        // 2) 허브 소켓 수집
         var hubSockets = hub.GetComponentsInChildren<DoorSocket>(true).ToList();
 
-        // 3) 각 허브 소켓에 방 부착
         foreach (var hubSock in hubSockets)
-            TryAttachOneRoomToHubSocket(hubSock, rng);
+        {
+            bool attached = TryAttachOneRoomToHubSocket(hubSock, rng);
+            if (!attached)
+            {
+                // 연결 실패한 허브 소켓은 End-Cap으로 마감 시도
+                TryCloseHubSocketWithEndCap(hubSock);
+            }
+        }
+    }
 
-        // 4) 필요 시: 남은 소켓 End-Cap 처리(원하시면 별도 함수로 추가 가능)
+    private bool TryCloseHubSocketWithEndCap(DoorSocket hubSocket)
+    {
+        if (EndCaps == null || EndCaps.Count == 0)
+        {
+            Debug.LogWarning("[LevelGenerator] EndCaps 목록이 비어 있어 허브 소켓을 마감할 수 없습니다.");
+            return false;
+        }
+
+        // DoorType 매칭되는 End-Cap 찾기
+        var def = EndCaps.FirstOrDefault(e => e != null && e.Prefab != null && e.Type == hubSocket.Type);
+        if (def == null)
+        {
+            Debug.LogWarning($"[LevelGenerator] DoorType {hubSocket.Type}용 End-Cap이 없습니다.");
+            return false;
+        }
+
+        // 실제 배치할 인스턴스를 먼저 만든다
+        var inst = Instantiate(def.Prefab, Vector3.zero, Quaternion.identity, RootOrSelf());
+
+        // 그 인스턴스 내부의 DoorSocket을 기준으로 정합 계산
+        var capSock = inst.GetComponentInChildren<DoorSocket>(true);
+        if (capSock == null)
+        {
+            Debug.LogWarning("[LevelGenerator] End-Cap 프리팹에 DoorSocket이 필요합니다(정합 기준).");
+            DestroyImmediate(inst);
+            return false;
+        }
+
+        // Y축(요)만 맞추는 정합
+        var (pos, rot) = AlignYawOnly(capSock.transform, hubSocket.transform);
+        inst.transform.SetPositionAndRotation(pos, rot);
+
+        // ProcBounds 기반 겹침 검사
+        if (IsOverlapping(inst))
+        {
+            DestroyImmediate(inst);
+            return false;
+        }
+
+        _placed.Add(inst);
+        return true;
     }
 
     private RoomDefinition PickHubCandidate(System.Random rng)
@@ -251,6 +306,7 @@ public class LevelGenerator : MonoBehaviour
     [ContextMenu("Clear All")]
     public void ClearAll()
     {
+        Debug.Log("Clear All Start");
         foreach (var go in _placed) if (go) DestroyImmediate(go);
         _placed.Clear();
 
