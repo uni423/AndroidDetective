@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public enum SceneType
 {
-    MainScene,
+    TitleScene,
+    LoadingScene, 
     GameScene,
+    ResultScene, 
 }
 
 public static class SceneLoader
@@ -16,7 +18,7 @@ public static class SceneLoader
 
     static SceneLoader()
     {
-        CurrentScene = SceneType.MainScene;
+        CurrentScene = SceneType.TitleScene;
 
         IsSceneLoading = false;
 

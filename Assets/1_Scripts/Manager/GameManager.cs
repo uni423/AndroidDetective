@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
         Initialize();
 
-        SceneLoader.Load("MainScene");
+        //SceneLoader.Load(SceneType.TitleScene);
     }
 
     public void Initialize()

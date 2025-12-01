@@ -6,16 +6,25 @@ using TMPro;
 
 public class NetworkingManager : MonoBehaviour
 {
-    public TextMeshProUGUI Result;
+    //public TextMeshProUGUI Result;
+    public string IP = "localhost";
+    public string Port = "8080";
+
+    public string DefaultURL = "";
 
     private void Start()
     {
+        DefaultURL = "http://" + IP + ":" + Port;
+    }
+
+    public void StartGame(string userId)
+    {
         GameInfo gameInfo = new GameInfo();
-        gameInfo.scenarioId = "lyj";
+        gameInfo.userId = userId;
 
         string postData = JsonUtility.ToJson(gameInfo);
 
-        StartCoroutine(PostRequest("http://localhost:8080/chat/startGame", postData));
+        StartCoroutine(PostRequest(DefaultURL + "/chat/startGame", postData));
     }
 
     IEnumerator PostRequest(string url, string postData)
@@ -41,7 +50,7 @@ public class NetworkingManager : MonoBehaviour
             else
             {
                 Debug.Log("Form upload complete!");
-                Result.text = webRequest.downloadHandler.text;
+                //Result.text = webRequest.downloadHandler.text;
                 //Debug.Log(webRequest.downloadHandler.text);
             }
         }
@@ -51,8 +60,6 @@ public class NetworkingManager : MonoBehaviour
 [System.Serializable]
 public class GameInfo
 {
-    public string scenarioId;
-    public string playerInput;
-    public string npcId;
-    public List<string> knownClues = new List<string>();
+    public string userId;
+    public string mode;
 }

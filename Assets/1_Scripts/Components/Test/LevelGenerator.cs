@@ -116,16 +116,22 @@ public class LevelGenerator : MonoBehaviour
     [ContextMenu("Generate (Hub Auto Pick)")]
     public void GenerateHubAuto()
     {
-        ClearAll();
-        var rng = new System.Random();
+        bool isGenerateRoomSuccess = false;
 
-        var hubDef = PickHubCandidate(rng);
-        if (hubDef == null) return;
+        do
+        {
+            ClearAll();
+            var rng = new System.Random();
 
-        GenerateHubWith(hubDef, rng);
+            var hubDef = PickHubCandidate(rng);
+            if (hubDef == null) return;
+
+            isGenerateRoomSuccess = GenerateHubWith(hubDef, rng);
+        }
+        while (isGenerateRoomSuccess == false );
     }
 
-    public void GenerateHubWith(RoomDefinition hubDef, System.Random rng = null)
+    public bool GenerateHubWith(RoomDefinition hubDef, System.Random rng = null)
     {
         if (rng == null) rng = new System.Random();
 
@@ -137,10 +143,12 @@ public class LevelGenerator : MonoBehaviour
             bool attached = TryAttachOneRoomToHubSocket(hubSock, rng);
             if (!attached)
             {
-                // 연결 실패한 허브 소켓은 End-Cap으로 마감 시도
-                TryCloseHubSocketWithEndCap(hubSock);
+                // 연결 실패 발생 시 방 생성 로직 즉시 중단 
+                return false;
             }
         }
+
+        return true;
     }
 
     private bool TryCloseHubSocketWithEndCap(DoorSocket hubSocket)

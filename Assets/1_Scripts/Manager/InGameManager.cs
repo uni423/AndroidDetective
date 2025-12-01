@@ -7,8 +7,7 @@ public class InGameManager : MonoBehaviour
 {
     public static InGameManager Instance;
 
-    public float score = 0;
-    public GameObject[] mapObjArr;
+    public LevelGenerator LevelGenerator;
 
     //public PlayerControl playerControl;
 
@@ -21,8 +20,6 @@ public class InGameManager : MonoBehaviour
     public static bool IsReSetting;
 
     private float time;
-    private float rabbitSpawnTime = 3f;
-    private float rabbitSpawnRadius = 10f;
     public float gameTime;
 
 
@@ -42,8 +39,7 @@ public class InGameManager : MonoBehaviour
 
         UIManager.Instance.Init();
 
-        //for (int i = 0; i < mapObjArr.Length; i++)
-        //    mapObjArr[i].SetActive(i == GameManager.Instance.UserInfoData.selectedStage);
+        LevelGenerator.GenerateHubAuto();
 
         DoGameStart();
 
@@ -56,7 +52,6 @@ public class InGameManager : MonoBehaviour
 
         IsPlaying = true;
         IsReSetting = false;
-
     }
 
     private void Update()

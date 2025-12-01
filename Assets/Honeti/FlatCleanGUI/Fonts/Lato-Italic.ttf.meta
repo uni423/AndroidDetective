@@ -1,0 +1,31 @@
+fileFormatVersion: 2
+guid: 89f40dbb4a7875140a311c08690dcd5e
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Lato
+  fontNames:
+  - Lato
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f5b2f26196179e74b8fa07290d78fc1a, type: 3}
+  - {fileID: 12800000, guid: c74823b57173a7540968fcf27add0bae, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 193562
+  packageName: Flat clean GUI 2.0 - over 800 PNG!
+  packageVersion: 1.0
+  assetPath: Assets/Honeti/FlatCleanGUI/Fonts/Lato-Italic.ttf
+  uploadId: 605440

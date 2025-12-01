@@ -6,8 +6,14 @@ using UnityEngine;
 public delegate void OnRefreshUI();
 public enum UIState
 {
-    _InGameUI,
-    _ResultUI, 
+    //Title Scene
+    Title_MainUI,
+    Title_OptionUI,
+    Title_QuitUI,
+
+    //IngameUI
+    Game_MainUI,
+
 }
 public class UIManager : MonoBehaviour
 {
