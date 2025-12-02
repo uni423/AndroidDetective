@@ -2,6 +2,9 @@
 {
     Properties
     {
+        // Debug.
+        [Toggle(DEBUG_SECTIONS_PERCEPTUAL)] _DebugSectionsPerceptual ("Debug Sections Perceptual", Float) = 0
+        
         // Discontinuity sections.
         [Toggle(SECTIONS_MASK)] _SectionsMask ("Sections Mask", Float) = 0
 
@@ -27,6 +30,7 @@
         _ReferenceResolution ("Reference Resolution", Float) = 1080
         
         // Outline distortion.
+         [Toggle(DISTORTION)] _Distortion ("Distortion", Float) = 0
         _DistortionTexture ("Distortion Texture", 3D) = "" {}
         _DistortionStrength("Distortion Strength", Range(0,1)) = 1
         _DistortionThicknessInfluence("Distortion Thickness Influence", Range(0,10)) = 0

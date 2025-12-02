@@ -326,11 +326,12 @@ namespace Linework.WideOutline
                         if (settings.scaleWithResolution)
                         {
                             // Analogue to scaling in shader.
+                            // NOTE: Disabled for now, might not be needed and also gives performance issues because number of steps in JFA becomes excessive.
                             // NOTE: scaledHeight not working on Unity 6000.0.0f1, when introduced?
                             #if UNITY_6000_1_OR_NEWER
-                            width *= cameraData.scaledHeight / Mathf.Max(settings.customResolution, 1.0f);
+                            // width *= cameraData.scaledHeight / Mathf.Max(settings.customResolution, 1.0f);
                             #else
-                            width *= cameraData.camera.pixelHeight / Mathf.Max(settings.customResolution, 1.0f);
+                            // width *= cameraData.camera.pixelHeight / Mathf.Max(settings.customResolution, 1.0f);
                             #endif
                         }
                       
@@ -981,7 +982,8 @@ namespace Linework.WideOutline
                     if (settings.scaleWithResolution)
                     {
                         // Analogue to scaling in shader.
-                        width *= renderingData.cameraData.cameraTargetDescriptor.height / Mathf.Max(settings.customResolution, 1.0f);
+                        // NOTE: Disabled for now, might not be needed and also gives performance issues because number of steps in JFA becomes excessive.
+                        // width *= renderingData.cameraData.cameraTargetDescriptor.height / Mathf.Max(settings.customResolution, 1.0f);
                     }
                     
                     var numberOfMips = Mathf.CeilToInt(Mathf.Log(width + 1.0f, 2f));

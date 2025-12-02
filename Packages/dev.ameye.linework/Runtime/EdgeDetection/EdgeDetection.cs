@@ -198,7 +198,7 @@ namespace Linework.EdgeDetection
 
                 if (edgeDetectionSettings.debugPerceptualSections) outline.EnableKeyword(ShaderFeature.DebugSectionsPerceptual);
                 else outline.DisableKeyword(ShaderFeature.DebugSectionsPerceptual);
-                
+
                 if (edgeDetectionSettings.discontinuityInput.HasFlag(DiscontinuityInput.Depth)) outline.EnableKeyword(ShaderFeature.DepthDiscontinuity);
                 else outline.DisableKeyword(ShaderFeature.DepthDiscontinuity);
                 if (edgeDetectionSettings.discontinuityInput.HasFlag(DiscontinuityInput.Normals)) outline.EnableKeyword(ShaderFeature.NormalDiscontinuity);
@@ -269,11 +269,11 @@ namespace Linework.EdgeDetection
                 outline.SetColor(ShaderPropertyId.HeightFadeColor, edgeDetectionSettings.heightFadeColor);
 
                 // Masks.
-                if (settings.maskInfluence.HasFlag(MaskInfluence.Depth)) outline.EnableKeyword(ShaderFeature.DepthMask);
+                if (settings.SectionMaskRenderingLayer != 0 && settings.maskInfluence.HasFlag(MaskInfluence.Depth)) outline.EnableKeyword(ShaderFeature.DepthMask);
                 else outline.DisableKeyword(ShaderFeature.DepthMask);
-                if (settings.maskInfluence.HasFlag(MaskInfluence.Normals)) outline.EnableKeyword(ShaderFeature.NormalsMask);
+                if (settings.SectionMaskRenderingLayer != 0 && settings.maskInfluence.HasFlag(MaskInfluence.Normals)) outline.EnableKeyword(ShaderFeature.NormalsMask);
                 else outline.DisableKeyword(ShaderFeature.NormalsMask);
-                if (settings.maskInfluence.HasFlag(MaskInfluence.Luminance)) outline.EnableKeyword(ShaderFeature.LuminanceMask);
+                if (settings.SectionMaskRenderingLayer != 0 && settings.maskInfluence.HasFlag(MaskInfluence.Luminance)) outline.EnableKeyword(ShaderFeature.LuminanceMask);
                 else outline.DisableKeyword(ShaderFeature.LuminanceMask);
 
                 // Distortion.
@@ -290,7 +290,7 @@ namespace Linework.EdgeDetection
                 else section.DisableKeyword(ShaderFeature.Breakup);
                 section.SetFloat(ShaderPropertyId.BreakupScale, edgeDetectionSettings.breakUpNoiseScale);
                 section.SetFloat(ShaderPropertyId.BreakupAmount, edgeDetectionSettings.breakUpNoiseAmount);
-                
+
                 // Fill.
                 if (edgeDetectionSettings.fill) outline.EnableKeyword(ShaderFeature.Fill);
                 else outline.DisableKeyword(ShaderFeature.Fill);
@@ -323,64 +323,67 @@ namespace Linework.EdgeDetection
 
                 CreateRenderGraphTextures(renderGraph, resourceData, out var sectionHandle, settings.sectionMapFormat, settings.sectionMapClearValue);
 
-                // 1. Section.
-                // -> Render section map.
-                using (var builder = renderGraph.AddRasterRenderPass<PassData>(ShaderPassName.Section, out var passData))
+                if (settings.discontinuityInput.HasFlag(DiscontinuityInput.Sections) || settings.SectionMaskRenderingLayer != 0)
                 {
-                    builder.SetRenderAttachment(sectionHandle, 0);
-                    builder.SetRenderAttachmentDepth(resourceData.activeDepthTexture);
-                    builder.SetGlobalTextureAfterPass(sectionHandle, ShaderPropertyId.CameraSectioningTexture);
-
-                    InitSectionRendererList(renderGraph, frameData, ref passData);
-                    builder.UseRendererList(passData.SectionRendererListHandle);
-                    if (settings.SectionMaskRenderingLayer != 0 && settings.maskInfluence != MaskInfluence.Nothing)
+                    // 1. Section.
+                    // -> Render section map.
+                    using (var builder = renderGraph.AddRasterRenderPass<PassData>(ShaderPassName.Section, out var passData))
                     {
-                        builder.UseRendererList(passData.SectionMaskRendererListHandle);
+                        builder.SetRenderAttachment(sectionHandle, 0);
+                        builder.SetRenderAttachmentDepth(resourceData.activeDepthTexture);
+                        builder.SetGlobalTextureAfterPass(sectionHandle, ShaderPropertyId.CameraSectioningTexture);
+
+                        InitSectionRendererList(renderGraph, frameData, ref passData);
+                        builder.UseRendererList(passData.SectionRendererListHandle);
+                        if (settings.SectionMaskRenderingLayer != 0 && settings.maskInfluence != MaskInfluence.Nothing)
+                        {
+                            builder.UseRendererList(passData.SectionMaskRendererListHandle);
+                        }
+                        foreach (var handle in passData.AdditionalSectionRendererListHandles)
+                        {
+                            builder.UseRendererList(handle);
+                        }
+
+                        var setSectionPassKeyword = settings.sectionMapInput == SectionMapInput.Custom
+                                                    || passData.AdditionalSectionRendererListHandles.Count > 0;
+                        if (setSectionPassKeyword) builder.AllowGlobalStateModification(true);
+
+                        builder.AllowPassCulling(false);
+
+                        builder.SetRenderFunc((PassData data, RasterGraphContext context) =>
+                        {
+                            // Enable section pass.
+                            if (setSectionPassKeyword)
+                            {
+                                context.cmd.DisableKeyword(Keyword.ScreenSpaceOcclusion);
+                                context.cmd.EnableKeyword(Keyword.SectionPass);
+                            }
+
+                            // Section pass.
+                            context.cmd.DrawRendererList(data.SectionRendererListHandle);
+
+                            // Section mask pass.
+                            // NOTE: The section mask can only be used to mask out other discontinuities if sectioning itself is not used as an input.
+                            if (!settings.discontinuityInput.HasFlag(DiscontinuityInput.Sections) && settings.SectionMaskRenderingLayer != 0 &&
+                                settings.maskInfluence != MaskInfluence.Nothing)
+                            {
+                                context.cmd.DrawRendererList(data.SectionMaskRendererListHandle);
+                            }
+
+                            // Additional section passes.
+                            foreach (var handle in data.AdditionalSectionRendererListHandles)
+                            {
+                                context.cmd.DrawRendererList(handle);
+                            }
+
+                            // Disable section map.
+                            if (setSectionPassKeyword)
+                            {
+                                context.cmd.EnableKeyword(Keyword.ScreenSpaceOcclusion);
+                                context.cmd.DisableKeyword(Keyword.SectionPass);
+                            }
+                        });
                     }
-                    foreach (var handle in passData.AdditionalSectionRendererListHandles)
-                    {
-                        builder.UseRendererList(handle);
-                    }
-
-                    var setSectionPassKeyword = settings.sectionMapInput == SectionMapInput.Custom
-                                                || passData.AdditionalSectionRendererListHandles.Count > 0;
-                    if (setSectionPassKeyword) builder.AllowGlobalStateModification(true);
-
-                    builder.AllowPassCulling(false);
-
-                    builder.SetRenderFunc((PassData data, RasterGraphContext context) =>
-                    {
-                        // Enable section pass.
-                        if (setSectionPassKeyword)
-                        {
-                            context.cmd.DisableKeyword(Keyword.ScreenSpaceOcclusion);
-                            context.cmd.EnableKeyword(Keyword.SectionPass);
-                        }
-
-                        // Section pass.
-                        context.cmd.DrawRendererList(data.SectionRendererListHandle);
-
-                        // Section mask pass.
-                        // NOTE: The section mask can only be used to mask out other discontinuities if sectioning itself is not used as an input.
-                        if (!settings.discontinuityInput.HasFlag(DiscontinuityInput.Sections) && settings.SectionMaskRenderingLayer != 0 &&
-                            settings.maskInfluence != MaskInfluence.Nothing)
-                        {
-                            context.cmd.DrawRendererList(data.SectionMaskRendererListHandle);
-                        }
-
-                        // Additional section passes.
-                        foreach (var handle in data.AdditionalSectionRendererListHandles)
-                        {
-                            context.cmd.DrawRendererList(handle);
-                        }
-
-                        // Disable section map.
-                        if (setSectionPassKeyword)
-                        {
-                            context.cmd.EnableKeyword(Keyword.ScreenSpaceOcclusion);
-                            context.cmd.DisableKeyword(Keyword.SectionPass);
-                        }
-                    });
                 }
 
                 // 2. Composite outline.
@@ -405,8 +408,17 @@ namespace Linework.EdgeDetection
                 var lightData = frameData.Get<UniversalLightData>();
 
                 var sortingCriteria = cameraData.defaultOpaqueSortFlags;
-                var renderQueueRange = RenderQueueRange.all;
+                
                 var drawingSettings = RenderingUtils.CreateDrawingSettings(RenderUtils.DefaultShaderTagIds, universalRenderingData, cameraData, lightData, sortingCriteria);
+
+                var renderQueueRange = settings.sectionRenderQueue switch
+                {
+                    OutlineRenderQueue.Opaque => RenderQueueRange.opaque,
+                    OutlineRenderQueue.Transparent => RenderQueueRange.transparent,
+                    OutlineRenderQueue.OpaqueAndTransparent => RenderQueueRange.all,
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                
                 var filteringSettings = new FilteringSettings(renderQueueRange, -1, settings.SectionRenderingLayer);
                 var renderStateBlock = new RenderStateBlock(RenderStateMask.Nothing);
 

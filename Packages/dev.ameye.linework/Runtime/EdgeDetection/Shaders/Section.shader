@@ -3,8 +3,11 @@ Shader "Hidden/Outlines/Edge Detection/Section"
     Properties
     {
         _SectionTexture ("Section Texture", 2D) = "white" {}
+        _BreakUpAmount ("Break up amount", Range(0, 1)) = 0
+        _BreakUpScale ("Break up scale", Range(0, 20)) = 0
         [Toggle(OBJECT_ID)] OBJECT_ID ("Object Id", Float) = 0
         [Toggle(PARTICLES)] PARTICLES ("Particles", Float) = 0
+        [Toggle(BREAKUP)] BREAKUP ("Breakup", Float) = 0
         [KeywordEnum(NONE, VERTEX_COLOR, TEXTURE)] INPUT("Input", Float) = 0
         [KeywordEnum(R, G, B, A)] VERTEX_COLOR_CHANNEL("Vertex Color Channel", Float) = 0
         [KeywordEnum(R, G, B, A)] TEXTURE_CHANNEL("Texture Channel", Float) = 0

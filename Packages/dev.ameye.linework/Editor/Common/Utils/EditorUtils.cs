@@ -124,6 +124,7 @@ namespace Linework.Editor.Common.Utils
             public static readonly GUIContent BreakUp = EditorGUIUtility.TrTextContent("Break Up Edges", "Break up the edges.");
             public static readonly GUIContent BreakUpAmount = EditorGUIUtility.TrTextContent("Amount", "How much to break up the edges.");
             public static readonly GUIContent BreakUpScale = EditorGUIUtility.TrTextContent("Frequency", "How often to break up the edges.");
+            public static readonly GUIContent SectionRenderQueue = EditorGUIUtility.TrTextContent("Queue", "Only gameobjects using this render queue will render to the section map.");
         }
 
         public static void SectionGUI(string title, SerializedProperty expanded, Action drawAction, SerializedObject serializedObject, SerializedProperty enabled = null)

@@ -71,8 +71,8 @@ Shader "Hidden/Outlines/Surface Fill/Fill"
             #pragma vertex Vert
             #pragma fragment frag
 
-            #pragma shader_feature _PATTERN_SOLID _PATTERN_STRIPES _PATTERN_SQUARES _PATTERN_DOTS _PATTERN_CHECKERBOARD _PATTERN_TEXTURE _PATTERN_GLOW
-            #pragma shader_feature _CHANNEL_R _CHANNEL_G _CHANNEL_B _CHANNEL_A
+            #pragma multi_compile_local _PATTERN_SOLID _PATTERN_STRIPES _PATTERN_SQUARES _PATTERN_DOTS _PATTERN_CHECKERBOARD _PATTERN_TEXTURE _PATTERN_GLOW
+            #pragma multi_compile_local _CHANNEL_R _CHANNEL_G _CHANNEL_B _CHANNEL_A
             
             #ifdef _PATTERN_TEXTURE
             TEXTURE2D(_Texture);
@@ -174,11 +174,11 @@ Shader "Hidden/Outlines/Surface Fill/Fill"
                 #if _CHANNEL_R
                 pattern = texture_sample.r;
                 #elif _CHANNEL_G
-                pattern = _texture_sample.g;
+                pattern = texture_sample.g;
                 #elif _CHANNEL_B
-                pattern = _texture_sample.b;
+                pattern = texture_sample.b;
                 #elif _CHANNEL_A
-                pattern = _texture_sample.a;
+                pattern = texture_sample.a;
                 #endif
                 #endif
 

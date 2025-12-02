@@ -13,7 +13,7 @@ namespace Linework.Editor.EdgeDetection
     {
         private SerializedProperty injectionPoint;
         private SerializedProperty showInSceneView;
-        
+
         // Debugging.
         private SerializedProperty debugView;
         private SerializedProperty debugSectionsChannels;
@@ -33,7 +33,8 @@ namespace Linework.Editor.EdgeDetection
         private SerializedProperty vertexColorChannel;
         private SerializedProperty additionalSectionPasses;
         private ReorderableList additionalSectionPassesList;
-        
+        private SerializedProperty sectionRenderQueue;
+
         // Discontinuity.
         private SerializedProperty discontinuityInput;
         private SerializedProperty depthSensitivity;
@@ -50,12 +51,12 @@ namespace Linework.Editor.EdgeDetection
         private SerializedProperty distortionScale;
         private SerializedProperty distortionStrength;
         private SerializedProperty distortionThicknessInfluence;
-        
+
         // Break up.
         private SerializedProperty breakUpEdges;
         private SerializedProperty breakUpScale;
         private SerializedProperty breakUpAmount;
-        
+
         // Outline.
         private SerializedProperty kernel;
         private SerializedProperty outlineThickness;
@@ -85,10 +86,10 @@ namespace Linework.Editor.EdgeDetection
             showSectionMapSection = serializedObject.FindProperty(nameof(EdgeDetectionSettings.showSectionMapSection));
             showDiscontinuitySection = serializedObject.FindProperty(nameof(EdgeDetectionSettings.showDiscontinuitySection));
             showOutlineSection = serializedObject.FindProperty(nameof(EdgeDetectionSettings.showOutlineSection));
-      
+
             injectionPoint = serializedObject.FindProperty("injectionPoint");
             showInSceneView = serializedObject.FindProperty("showInSceneView");
-            
+
             // Debugging.
             debugView = serializedObject.FindProperty("debugView");
             debugSectionsChannels = serializedObject.FindProperty(nameof(EdgeDetectionSettings.debugSectionsChannels));
@@ -109,10 +110,7 @@ namespace Linework.Editor.EdgeDetection
             additionalSectionPasses = serializedObject.FindProperty(nameof(EdgeDetectionSettings.additionalSectionPasses));
             additionalSectionPassesList = new ReorderableList(serializedObject, additionalSectionPasses, true, true, true, true)
             {
-                drawHeaderCallback = rect =>
-                {
-                    EditorGUI.LabelField(rect, "Additional Section Passes");
-                },
+                drawHeaderCallback = rect => { EditorGUI.LabelField(rect, "Additional Section Passes"); },
                 drawElementCallback = (rect, index, _, _) =>
                 {
                     var element = additionalSectionPasses.GetArrayElementAtIndex(index);
@@ -120,7 +118,8 @@ namespace Linework.Editor.EdgeDetection
                 },
                 elementHeightCallback = _ => GetElementHeight()
             };
-            
+            sectionRenderQueue = serializedObject.FindProperty(nameof(EdgeDetectionSettings.sectionRenderQueue));
+
             // Discontinuity.
             discontinuityInput = serializedObject.FindProperty(nameof(EdgeDetectionSettings.discontinuityInput));
             depthSensitivity = serializedObject.FindProperty(nameof(EdgeDetectionSettings.depthSensitivity));
@@ -129,20 +128,20 @@ namespace Linework.Editor.EdgeDetection
             grazingAngleMaskHardness = serializedObject.FindProperty(nameof(EdgeDetectionSettings.grazingAngleMaskHardness));
             normalSensitivity = serializedObject.FindProperty(nameof(EdgeDetectionSettings.normalSensitivity));
             luminanceSensitivity = serializedObject.FindProperty(nameof(EdgeDetectionSettings.luminanceSensitivity));
-        
+
             // Distortion.
             distortEdges = serializedObject.FindProperty(nameof(EdgeDetectionSettings.distortEdges));
             distortionTexture = serializedObject.FindProperty(nameof(EdgeDetectionSettings.distortionTexture));
             distortionScale = serializedObject.FindProperty(nameof(EdgeDetectionSettings.distortionScale));
             distortionStrength = serializedObject.FindProperty(nameof(EdgeDetectionSettings.distortionStrength));
             distortionStepRate = serializedObject.FindProperty(nameof(EdgeDetectionSettings.distortionStepRate));
-            distortionThicknessInfluence =  serializedObject.FindProperty(nameof(EdgeDetectionSettings.distortionThicknessInfluence));
-            
+            distortionThicknessInfluence = serializedObject.FindProperty(nameof(EdgeDetectionSettings.distortionThicknessInfluence));
+
             // Break up.
             breakUpEdges = serializedObject.FindProperty(nameof(EdgeDetectionSettings.breakUpEdges));
             breakUpAmount = serializedObject.FindProperty(nameof(EdgeDetectionSettings.breakUpNoiseAmount));
             breakUpScale = serializedObject.FindProperty(nameof(EdgeDetectionSettings.breakUpNoiseScale));
-            
+
             // Outline.
             kernel = serializedObject.FindProperty(nameof(EdgeDetectionSettings.kernel));
             outlineThickness = serializedObject.FindProperty(nameof(EdgeDetectionSettings.outlineThickness));
@@ -208,7 +207,7 @@ namespace Linework.Editor.EdgeDetection
                         EditorGUILayout.PropertyField(debugPerceptualSections, EditorUtils.CommonStyles.DebugPerceptualSections);
                         EditorGUILayout.HelpBox("Blue = mask, Green = fill", MessageType.Info);
                         if (debugPerceptualSections.boolValue)
-                        { 
+                        {
                             EditorGUILayout.HelpBox("When using perceptual mode, only the R channel will be visualized", MessageType.Info);
                         }
                         EditorGUI.indentLevel--;
@@ -221,9 +220,21 @@ namespace Linework.Editor.EdgeDetection
 
             EditorUtils.SectionGUI("Section Map", showSectionMapSection, () =>
             {
+                if (!((DiscontinuityInput) discontinuityInput.intValue).HasFlag(DiscontinuityInput.Sections) &&
+                    maskRenderingLayer.intValue == 0)
+                {
+                    EditorGUILayout.HelpBox("The section map will not be generated since sections are not marked as an edge detection source and no rendering layers are being masked/excluded.", MessageType.Info);
+                    EditorGUILayout.Space();
+                }
+                else
+                { EditorGUILayout.HelpBox("The section map is being generated according to your current settings.", MessageType.Info);
+                    EditorGUILayout.Space();
+                    
+                }
                 EditorGUILayout.PropertyField(sectionMapFormat, EditorUtils.CommonStyles.SectionMapFormat);
                 EditorGUILayout.PropertyField(sectionMapClearValue, EditorUtils.CommonStyles.SectionMapClearValue);
                 EditorGUILayout.PropertyField(sectionRenderingLayer, EditorUtils.CommonStyles.SectionLayer);
+                EditorGUILayout.PropertyField(sectionRenderQueue, EditorUtils.CommonStyles.SectionRenderQueue);
                 EditorGUILayout.PropertyField(sectionMapInput, EditorUtils.CommonStyles.SectionMapInput);
                 EditorGUI.indentLevel++;
                 if ((SectionMapInput) sectionMapInput.intValue == SectionMapInput.VertexColors)
@@ -238,7 +249,7 @@ namespace Linework.Editor.EdgeDetection
                     EditorGUILayout.PropertyField(vertexColorChannel, EditorUtils.CommonStyles.SectionTextureChannel);
                 }
                 EditorGUI.indentLevel--;
-                
+
                 using (new EditorGUI.DisabledScope((SectionMapInput) sectionMapInput.intValue == SectionMapInput.Custom))
                 {
                     EditorGUILayout.PropertyField(objectId, EditorUtils.CommonStyles.ObjectId);
@@ -250,11 +261,11 @@ namespace Linework.Editor.EdgeDetection
                     const string keywordMessage = "Custom Section Map: Use the _SECTION_PASS keyword to render directly to the section map.";
                     EditorGUILayout.HelpBox(keywordMessage, MessageType.Info);
                 }
-                
+
                 EditorGUILayout.Space();
                 additionalSectionPassesList.DoLayoutList();
             }, serializedObject);
-            
+
             EditorUtils.SectionGUI("Edge Detection", showDiscontinuitySection, () =>
             {
                 EditorGUI.BeginChangeCheck();
@@ -263,12 +274,12 @@ namespace Linework.Editor.EdgeDetection
                 discontinuityInput.intValue = (int) discontinuityInputValue;
                 if (EditorGUI.EndChangeCheck())
                 {
-                    discontinuityInput.intValue = (int)discontinuityInputValue;
+                    discontinuityInput.intValue = (int) discontinuityInputValue;
                     discontinuityInput.serializedObject.ApplyModifiedProperties();
                 }
-                
+
                 // Exclusions
-                var hasSections = ((DiscontinuityInput)discontinuityInput.intValue).HasFlag(DiscontinuityInput.Sections);
+                var hasSections = ((DiscontinuityInput) discontinuityInput.intValue).HasFlag(DiscontinuityInput.Sections);
                 if (hasSections)
                 {
                     EditorGUILayout.HelpBox("When sections are enabled as a discontinuity source, they can not be used to mask out other discontinuity sources.", MessageType.Info);
@@ -283,7 +294,7 @@ namespace Linework.Editor.EdgeDetection
                     EditorGUI.indentLevel--;
                     EditorGUILayout.Space();
                 }
-                
+
                 using (new EditorGUI.DisabledScope(!discontinuityInputValue.HasFlag(DiscontinuityInput.Depth)))
                 {
                     EditorGUILayout.LabelField("Depth", EditorStyles.boldLabel);
@@ -308,7 +319,7 @@ namespace Linework.Editor.EdgeDetection
                 }
                 EditorGUILayout.Space();
             }, serializedObject);
-            
+
             EditorUtils.SectionGUI("Outline", showOutlineSection, () =>
             {
                 EditorGUILayout.LabelField("Sampling", EditorStyles.boldLabel);
@@ -330,15 +341,16 @@ namespace Linework.Editor.EdgeDetection
                     EditorGUI.indentLevel--;
                 }
                 EditorGUILayout.EndHorizontal();
-                
+
                 EditorGUILayout.Space();
-                
+
                 EditorGUILayout.LabelField("Hand-drawn Effects (experimental)", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(distortEdges, EditorUtils.CommonStyles.Distort);
                 if (distortEdges.boolValue)
                 {
                     EditorGUI.indentLevel++;
-                    EditorGUILayout.HelpBox("Line distortion requires a 3D noise texture. You can use the one included in Packages/Linework/Runtime/EdgeDetection/Textures.", MessageType.Info);
+                    EditorGUILayout.HelpBox("Line distortion requires a 3D noise texture. You can use the one included in Packages/Linework/Runtime/EdgeDetection/Textures.",
+                        MessageType.Info);
                     EditorGUILayout.PropertyField(distortionTexture, EditorUtils.CommonStyles.DistortionTexture);
                     EditorGUILayout.PropertyField(distortionScale, EditorUtils.CommonStyles.DistortionScale);
                     EditorGUILayout.PropertyField(distortionStrength, EditorUtils.CommonStyles.DistortionStrength);
@@ -354,9 +366,9 @@ namespace Linework.Editor.EdgeDetection
                     EditorGUILayout.PropertyField(breakUpScale, EditorUtils.CommonStyles.BreakUpScale);
                     EditorGUI.indentLevel--;
                 }
-                
+
                 EditorGUILayout.Space();
-                
+
                 EditorGUILayout.LabelField("Colors", EditorStyles.boldLabel);
                 EditorGUILayout.PropertyField(outlineColor, EditorUtils.CommonStyles.EdgeColor);
                 EditorGUILayout.BeginHorizontal();
@@ -392,10 +404,10 @@ namespace Linework.Editor.EdgeDetection
                 EditorGUILayout.PropertyField(blendMode, EditorUtils.CommonStyles.OutlineBlendMode);
                 EditorGUILayout.Space();
             }, serializedObject);
-            
+
             serializedObject.ApplyModifiedProperties();
         }
-        
+
         private static void DrawOverride(Rect rect, SerializedProperty element)
         {
             var renderingLayerProperty = element.FindPropertyRelative(nameof(SectionPass.RenderingLayer));
@@ -403,10 +415,10 @@ namespace Linework.Editor.EdgeDetection
 
             var renderingLayerWidth = rect.width * 0.4f;
             var materialWidth = rect.width * 0.6f;
-            
+
             var renderingLayerRect = new Rect(rect.x, rect.y, renderingLayerWidth, EditorGUIUtility.singleLineHeight);
             EditorGUI.PropertyField(renderingLayerRect, renderingLayerProperty, GUIContent.none);
-            
+
             var materialRect = new Rect(rect.x + renderingLayerWidth + 5, rect.y, materialWidth, EditorGUIUtility.singleLineHeight);
             EditorGUI.PropertyField(materialRect, materialProperty, GUIContent.none);
         }

@@ -3,7 +3,6 @@ using Linework.Common.Attributes;
 #endif
 using Linework.Common.Utils;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Linework.SurfaceFill
 {

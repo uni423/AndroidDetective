@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Headers should be listed in this order: Added, Changed, Deprecated, Removed, Fixed, Security -->
 
+## [1.5.1] - 2025-11-27
+
+### Added
+
+- Edge Detection: Added option to set render queue for section map
+- - TODO: make sure RG section map is generated when using breakup!!
+
+### Fixed
+
+- Edge Detection: Fixed the section shader no longer being SRP-batcher compatible
+- Edge Detection: Reduced number of shader variants being included in build
+- Edge Detection: Keep the section map from being generated when not necessary
+- Wide Outline: Fixed issue with 'Scale With Resolution' option causing excessive draw calls during flood step
+- Surface Fill: Fixed not all necessary variants being included in build
+
 ## [1.5.0] - 2025-11-20
 
 ### Added
