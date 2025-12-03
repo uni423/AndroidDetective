@@ -24,6 +24,64 @@ public class NetworkingManager : MonoBehaviour
 
         string postData = JsonUtility.ToJson(gameInfo);
 
+        // Json Test
+
+        List<Room> Map = new List<Room>();
+        Map.Add(new Room
+        {
+            id = "roomLobby",
+            name = "로비",
+            description = "방 내부 설명",
+            connection = new List<string>
+                        {
+                            "room_TypeA1",
+                            "room_TypeB3"
+                        }
+        });
+
+        Map.Add(new Room
+        {
+            id = "room_TypeA1",
+            name = "1번 방",
+            description = "방 내부 설명",
+            connection = new List<string>
+                        {
+                            "roomLobby",
+                        }
+        });
+
+        Map.Add(new Room
+        {
+            id = "room_TypeB3",
+            name = "2번 방",
+            description = "방 내부 설명",
+            connection = new List<string>
+                        {
+                            "roomLobby",
+                        }
+        });
+
+        string postData2 = JsonUtility.ToJson(Map);
+
+        List<Clue> Clues = new List<Clue>();
+
+        Clues.Add(new Clue
+        {
+            id = "clueLog2157",
+            name = "단서명A",
+            description = "단서 설명"
+        });
+
+        Clues.Add(new Clue
+        {
+            id = "clueLog4568",
+            name = "단서명B",
+            description = "단서 설명"
+        });
+
+        string postData3 = JsonUtility.ToJson(Clues);
+
+
         StartCoroutine(PostRequest(DefaultURL + "/chat/startGame", postData));
     }
 
@@ -62,4 +120,19 @@ public class GameInfo
 {
     public string userId;
     public string mode;
+}
+
+public class Room
+{
+    public string id;
+    public string name;
+    public string description;
+    public List<string> connection;
+}
+
+public class Clue
+{
+    public string id;
+    public string name;
+    public string description;
 }
