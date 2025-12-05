@@ -119,7 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   m_Layer: 0
-  m_Name: 17_ev_wall_fine_scratches
+  m_Name: 23_ev_wall_horizontal_dust_line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
