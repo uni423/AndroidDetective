@@ -88,7 +88,7 @@ MonoBehaviour:
   disableWidthControl: 1
   RenderingLayer:
     serializedVersion: 0
-    m_Bits: 5
+    m_Bits: 4
   layerMask:
     serializedVersion: 2
     m_Bits: 4096
@@ -97,7 +97,7 @@ MonoBehaviour:
   cullingMode: 0
   closedLoop: 0
   alphaCutout: 1
-  alphaCutoutTexture: {fileID: 2800000, guid: c942d7f8a5184f345a7fe9b9de899c97, type: 3}
+  alphaCutoutTexture: {fileID: 2800000, guid: 796bd951c7eedac4197aea275df87f9b, type: 3}
   alphaCutoutThreshold: 0.5
   alphaCutoutUVTransform: {x: 0, y: 0, z: 0, w: 0}
   gpuInstancing: 1

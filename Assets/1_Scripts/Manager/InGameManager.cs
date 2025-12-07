@@ -39,11 +39,22 @@ public class InGameManager : MonoBehaviour
 
         UIManager.Instance.Init();
 
-        LevelGenerator.GenerateHubAuto();
+        DoGameSettingFlow();
 
         DoGameStart();
 
         gameTime = 60;
+    }
+
+    public void DoGameSettingFlow()
+    {
+        // 맵 생성 (테마 선택) 
+        LevelGenerator.GenerateHubAuto();
+
+        // 증거품 선택 
+
+
+
     }
 
     public static void DoGameStart()
