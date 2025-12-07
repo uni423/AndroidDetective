@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4000322846404036648}
+  - component: {fileID: -2988733660074843640}
   m_Layer: 0
   m_Name: 14_ev_floor_graphite_tip
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 5440392209936202507}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2988733660074843640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5754398562256636010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_floor_graphite_tip
+  clueName: "\uBD80\uB7EC\uC9C4 \uC5F0\uD544"
+  description: "\uB178\uB780\uC0C9 \uC5F0\uD544\uC774 \uC808\uBC18\uC73C\uB85C \uBD80\uB7EC\uC9C4
+    \uD615\uD0DC."
 --- !u!1 &8768559348782304925
 GameObject:
   m_ObjectHideFlags: 0

@@ -120,7 +120,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 750
+    propertyId: 648
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.6, w: 0.2}
@@ -187,6 +187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2902666869321610398}
+  - component: {fileID: -4033730392378393634}
   m_Layer: 0
   m_Name: 28_ev_wall_static_dust_veil
   m_TagString: Untagged
@@ -210,3 +211,19 @@ Transform:
   - {fileID: 7560508907264645644}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4033730392378393634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172151751080866314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_wall_static_dust_veil
+  clueName: "\uC815\uC804\uAE30\uB85C \uBD99\uC740 \uBA3C\uC9C0\uB9C9"
+  description: "\uB113\uAC8C \uAE54\uB9B0 \uC587\uC740 \uBA3C\uC9C0 \uBCA0\uC77C,
+    \uAC00\uC7A5\uC790\uB9AC \uD750\uB9BC."

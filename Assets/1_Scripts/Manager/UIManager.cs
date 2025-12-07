@@ -12,6 +12,7 @@ public enum UIState
     Title_QuitUI,
 
     //IngameUI
+    Game_QRUI,
     Game_MainUI,
 
 }

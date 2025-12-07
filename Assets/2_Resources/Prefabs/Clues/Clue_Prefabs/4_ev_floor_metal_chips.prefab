@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7395332957926021560}
+  - component: {fileID: -5607818369923847926}
   m_Layer: 0
   m_Name: 4_ev_floor_metal_chips
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 5444720404387291911}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5607818369923847926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7967810088279447759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_floor_metal_chips
+  clueName: "\uAE08\uC18D \uBD80\uC2A4\uB7EC\uAE30 \uC54C\uAC31\uC774"
+  description: "\uD68C\uC0C9 \uAE08\uC18D \uC870\uAC01\uB4E4\uC774 \uD769\uC5B4\uC838
+    \uC788\uC74C. "
 --- !u!1001 &5477838540550046956
 PrefabInstance:
   m_ObjectHideFlags: 0

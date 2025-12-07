@@ -62,6 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1390328934480795288}
+  - component: {fileID: 6121318732117146059}
   m_Layer: 0
   m_Name: 15_ev_floor_cable_tie_snip
   m_TagString: Untagged
@@ -85,6 +86,22 @@ Transform:
   - {fileID: 2011605518961712749}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6121318732117146059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3333977080795379081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_floor_cable_tie_snip
+  clueName: "\uC798\uB9B0 \uCF00\uC774\uBE14 \uD0C0\uC774 \uC870\uAC01"
+  description: "\uD1B1\uB2C8 \uB760\uAC00 \uBC18\uCBE4 \uB9D0\uB9B0 \uCC44 \uC798\uB824\uB098\uAC04
+    \uCF00\uC774\uBE14 \uD0C0\uC774."
 --- !u!1001 &2044653965115718022
 PrefabInstance:
   m_ObjectHideFlags: 0

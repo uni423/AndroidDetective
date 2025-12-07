@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Room_Type_D1
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1215956630339302880, guid: 3c2f4910b9f68a2439b4ff6f0e732ae1, type: 3}
-  AllowRotate90: 1
-  Weight: 1
-  Tags: []
-  HubAffinity: 0
+  Id: Room_Type_D1
+  DisplayName: "\uD14C\uC2A4\uD2B8 \uBC29 D1"
+  Description: "\uD14C\uC2A4\uD2B8\uC6A9 \uBC29. D1 \uD0C0\uC785 "

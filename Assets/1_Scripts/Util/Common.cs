@@ -12,6 +12,13 @@ public enum GameStep
     Loading, Menu, Playing, End, Continue, Pause,
 }
 
+public enum InGameStep
+{
+    QRConnectWait,
+    CreateGameLoading, 
+    StartGame, 
+}
+
 public enum AttackType
 {
     Normal, 

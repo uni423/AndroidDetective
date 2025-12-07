@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 831367381597356440}
+  - component: {fileID: 4623603490871118646}
   m_Layer: 0
   m_Name: 9_ev_floor_fiber_cluster
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 5992109440711788113}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4623603490871118646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4911467682380545988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_floor_fiber_cluster
+  clueName: "\uC637\uC12C\uC720 \uBB49\uCE58"
+  description: "\uC9E7\uC740 \uC2E4 \uAC00\uB2E5\uC774 \uC5C9\uACA8 \uC791\uC740
+    \uD0C0\uC6D0\uD615 \uD074\uB7EC\uC2A4\uD130."
 --- !u!1 &8401219037488969146
 GameObject:
   m_ObjectHideFlags: 0

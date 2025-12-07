@@ -120,7 +120,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 750
+    propertyId: 648
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.2, w: 0.2}
@@ -187,6 +187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2902666869321610398}
+  - component: {fileID: -2164855865176236027}
   m_Layer: 0
   m_Name: 18_ev_wall_paint_peel
   m_TagString: Untagged
@@ -210,3 +211,18 @@ Transform:
   - {fileID: 7560508907264645644}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2164855865176236027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172151751080866314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_wall_paint_peel
+  clueName: "\uBC97\uACA8\uC9C4 \uD398\uC778\uD2B8 \uC870\uAC01"
+  description: "\uB3C4\uB9C9 \uD0C8\uB77D\uC73C\uB85C \uBC14\uD0D5\uC7AC \uB178\uCD9C."

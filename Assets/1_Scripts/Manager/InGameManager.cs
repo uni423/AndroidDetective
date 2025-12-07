@@ -8,12 +8,12 @@ public class InGameManager : MonoBehaviour
     public static InGameManager Instance;
 
     public LevelGenerator LevelGenerator;
+    public ClueJsonGenerator clueJsonGenerator;
 
-    //public PlayerControl playerControl;
+    public ClueListWrapper wrapper;
+    public string PlayerId;
 
-    //public UnitManager unitManager { private set; get; }
-
-    //public static ObjectPooling ObjectPooling { get; private set; }
+    public NetworkingManager NetworkingManager;
 
     public static bool IsPlaying;
     public static bool IsContinue;
@@ -22,6 +22,7 @@ public class InGameManager : MonoBehaviour
     private float time;
     public float gameTime;
 
+    public InGameStep InGameStep;
 
     //public void Init()
     protected void Awake()
@@ -38,6 +39,9 @@ public class InGameManager : MonoBehaviour
         //unitManager.Initialize();
 
         UIManager.Instance.Init();
+        NetworkingManager.Init();
+
+        InGameStep = InGameStep.QRConnectWait;
 
         DoGameSettingFlow();
 
@@ -50,11 +54,17 @@ public class InGameManager : MonoBehaviour
     {
         // 맵 생성 (테마 선택) 
         LevelGenerator.GenerateHubAuto();
+        Debug.Log(LevelGenerator.ExportMapJson());
 
         // 증거품 선택 
 
+        wrapper = clueJsonGenerator.BuildRandomCluesJson();
 
+        string guid = System.Guid.NewGuid().ToString("N");
+        PlayerId = guid.Substring(0, 8);
 
+        NetworkingManager.StartGame(PlayerId, LevelGenerator.ExportMapJson(), JsonUtility.ToJson(wrapper, true));
+        NetworkingManager.PopupPhoneQRWeb(PlayerId);
     }
 
     public static void DoGameStart()
@@ -84,6 +94,17 @@ public class InGameManager : MonoBehaviour
         //SpawnRabbit();
 
         //unitManager.OnUpdate(Time.deltaTime);
+    }
+
+    public void ChangeInGameStep(InGameStep ChangeStep)
+    {
+        if (InGameStep == InGameStep.QRConnectWait
+            && ChangeStep == InGameStep.StartGame)
+        {
+            DoGameStart();
+        }
+
+        InGameStep = ChangeStep;
     }
 
     //private void LateUpdate()

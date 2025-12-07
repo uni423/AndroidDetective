@@ -227,7 +227,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 750
+    propertyId: 648
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0, w: 0.6}
@@ -241,6 +241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2902666869321610398}
+  - component: {fileID: 6975780079357714227}
   m_Layer: 0
   m_Name: 5_ev_floor_shoeprints_pair
   m_TagString: Untagged
@@ -264,3 +265,19 @@ Transform:
   - {fileID: 7560508907264645644}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6975780079357714227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172151751080866314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_floor_shoeprints_pair
+  clueName: "\uC2E0\uBC1C \uBC1C\uC790\uAD6D"
+  description: "\uC2E0\uBC1C \uBC1C\uC790\uAD6D \uD328\uD134\uC774 \uC88C\uC6B0 \uD55C\uC30D\uC73C\uB85C
+    \uCC0D\uD798."

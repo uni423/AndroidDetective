@@ -120,7 +120,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 750
+    propertyId: 648
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.2, w: 0.4}
@@ -187,6 +187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2902666869321610398}
+  - component: {fileID: 4915689844066690219}
   m_Layer: 0
   m_Name: 17_ev_wall_fine_scratches
   m_TagString: Untagged
@@ -210,3 +211,19 @@ Transform:
   - {fileID: 7560508907264645644}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4915689844066690219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172151751080866314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_wall_fine_scratches
+  clueName: "\uC587\uAC8C \uAE01\uD78C \uC2A4\uD06C\uB798\uCE58"
+  description: "\uAC00\uB294 \uC120\uD615 \uAE01\uD798\uC774 2\uC904\uB85C \uD3C9\uD589\uD558\uAC8C
+    \uC874\uC7AC."

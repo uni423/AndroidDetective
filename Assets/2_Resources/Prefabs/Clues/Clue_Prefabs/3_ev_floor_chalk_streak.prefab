@@ -120,7 +120,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 750
+    propertyId: 648
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0, w: 0.8}
@@ -134,6 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3481328536718485382}
+  - component: {fileID: -4305469715741777457}
   m_Layer: 0
   m_Name: 3_ev_floor_chalk_streak
   m_TagString: Untagged
@@ -157,6 +158,22 @@ Transform:
   - {fileID: 1589764905253882514}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4305469715741777457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3862113167133359205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_floor_chalk_streak
+  clueName: "\uBD84\uD544 \uAC00\uB8E8 \uB04C\uB9B0 \uC790\uAD6D"
+  description: "\uBC31\uC0C9 \uBD84\uB9D0\uC774 \uAE38\uAC8C \uC4F8\uB824 \uB9CC\uB4E0
+    \uC120\uD615 \uD754\uC801."
 --- !u!1 &4015478637337118850
 GameObject:
   m_ObjectHideFlags: 0

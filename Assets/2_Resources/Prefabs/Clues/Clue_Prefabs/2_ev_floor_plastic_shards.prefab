@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8197509263898462493}
+  - component: {fileID: 1874683803101689468}
   m_Layer: 0
   m_Name: 2_ev_floor_plastic_shards
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 2047129752750657438}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1874683803101689468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3683027111691799667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_floor_plastic_shards
+  clueName: "\uD50C\uB77C\uC2A4\uD2F1 \uD30C\uD3B8 \uD769\uC5B4\uC9D0"
+  description: "\uBC18\uD22C\uBA85 \uC720\uC0C9 \uC870\uAC01\uC774 \uC810\uC810\uC774
+    \uD769\uC5B4\uC838 \uC788\uC74C."
 --- !u!1001 &2009279247728470133
 PrefabInstance:
   m_ObjectHideFlags: 0

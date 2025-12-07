@@ -62,6 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7029878966020033423}
+  - component: {fileID: -6464136166602632040}
   m_Layer: 0
   m_Name: 13_ev_floor_rubber_band
   m_TagString: Untagged
@@ -85,6 +86,22 @@ Transform:
   - {fileID: 2410889360985627131}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6464136166602632040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8232802343023525017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_floor_rubber_band
+  clueName: "\uBC14\uB2E5\uC5D0 \uB5A8\uC5B4\uC9C4 \uACE0\uBB34\uC904"
+  description: "\uB0A9\uC791\uD55C \uD0C0\uC6D0\uD615 \uACE0\uBB34 \uB9C1 \uD558\uB098\uAC00
+    \uB193\uC5EC \uC788\uC74C."
 --- !u!1001 &2810116858041892368
 PrefabInstance:
   m_ObjectHideFlags: 0

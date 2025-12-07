@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 220032043554846124}
+  - component: {fileID: -1554954177808171150}
   m_Layer: 0
   m_Name: 1_ev_floor_wood_splinters
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 2395823668858456126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1554954177808171150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929596559611555340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clueId: ev_floor_wood_splinters
+  clueName: "\uBAA9\uC7AC \uD30C\uD3B8 \uB354\uBBF8"
+  description: "\uC798\uAC8C \uCABC\uAC1C\uC9C4 \uB098\uBB34 \uC870\uAC01\uC774 \uD55C\uACF3\uC5D0
+    \uBAA8\uC5EC \uC788\uC74C."
 --- !u!1001 &2789159267888099285
 PrefabInstance:
   m_ObjectHideFlags: 0

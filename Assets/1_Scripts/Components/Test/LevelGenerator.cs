@@ -2,13 +2,6 @@
 using System.Linq;
 using UnityEngine;
 
-[System.Serializable]
-public class EndCapDefinition
-{
-    public DoorType Type;       // 이 타입의 문을 막을 때 사용
-    public GameObject Prefab;   // DoorSocket 1개만 가진 “막개” 프리팹(ProcBounds 트리거 포함)
-}
-
 public class LevelGenerator : MonoBehaviour
 {
     [Header("카탈로그(붙일 방들)")]
@@ -26,25 +19,21 @@ public class LevelGenerator : MonoBehaviour
     // 허브(거실) 생성 옵션
     [Header("허브(거실) 후보 설정")]
     public List<RoomDefinition> HubCandidates; // 비우면 Catalog에서 Tag="Hub" 자동 추출
-    public int RequiredHubDoorCount = 4;       // 허브 최소 문 개수(예: 4 또는 5)
+    public int RequiredHubDoorCount = 0;       // 허브 최소 문 개수(예: 4 또는 5)
     public DoorType[] AllowedHubDoorTypes;     // 비우면 모든 타입 허용
-    public string RequiredHubTag;              // 특정 태그 요구 시(예: "Hub_Large")
-    public bool PreferMoreDoors = true;        // 문 많은 허브 우선
-    public bool PreferHigherHubAffinity = true;// HubAffinity 우선
 
     [Header("허브 연결 옵션")]
     public bool HubOnlyStar = true;            // true: 허브에 붙인 방에서 더 확장 X
     public int MaxTriesPerSocket = 20;         // 각 소켓마다 시도 제한
 
-    [Header("End-Cap (남는 문 막기)")]
-    public List<EndCapDefinition> EndCaps;  // 타입별 막개 목록
-
     // 내부 상태
     private readonly List<GameObject> _placed = new();
 
+    private readonly Dictionary<GameObject, RoomDefinition> _roomDefs = new();
+    private readonly Dictionary<GameObject, HashSet<GameObject>> _roomConnections = new();
+
     private void Start()
     {
-        Debug.Log(" Start");
         if (GenerateOnStart) GenerateHubAuto(); // 일반 프론티어 모드(원하면 사용)
     }
 
@@ -85,7 +74,9 @@ public class LevelGenerator : MonoBehaviour
                         var inst = Instantiate(cand.Prefab, pos, rotWorld, RootOrSelf());
                         if (!IsOverlapping(inst))
                         {
-                            _placed.Add(inst);
+                            // 방 등록 + 연결 기록
+                            RegisterRoomInstance(inst, cand);
+                            RegisterConnection(baseRoom, inst);
 
                             // 연결된 양쪽 소켓 닫기
                             openSockets.RemoveAt(idx);
@@ -128,7 +119,7 @@ public class LevelGenerator : MonoBehaviour
 
             isGenerateRoomSuccess = GenerateHubWith(hubDef, rng);
         }
-        while (isGenerateRoomSuccess == false );
+        while (isGenerateRoomSuccess == false);
     }
 
     public bool GenerateHubWith(RoomDefinition hubDef, System.Random rng = null)
@@ -151,57 +142,17 @@ public class LevelGenerator : MonoBehaviour
         return true;
     }
 
-    private bool TryCloseHubSocketWithEndCap(DoorSocket hubSocket)
-    {
-        if (EndCaps == null || EndCaps.Count == 0)
-        {
-            Debug.LogWarning("[LevelGenerator] EndCaps 목록이 비어 있어 허브 소켓을 마감할 수 없습니다.");
-            return false;
-        }
-
-        // DoorType 매칭되는 End-Cap 찾기
-        var def = EndCaps.FirstOrDefault(e => e != null && e.Prefab != null && e.Type == hubSocket.Type);
-        if (def == null)
-        {
-            Debug.LogWarning($"[LevelGenerator] DoorType {hubSocket.Type}용 End-Cap이 없습니다.");
-            return false;
-        }
-
-        // 실제 배치할 인스턴스를 먼저 만든다
-        var inst = Instantiate(def.Prefab, Vector3.zero, Quaternion.identity, RootOrSelf());
-
-        // 그 인스턴스 내부의 DoorSocket을 기준으로 정합 계산
-        var capSock = inst.GetComponentInChildren<DoorSocket>(true);
-        if (capSock == null)
-        {
-            Debug.LogWarning("[LevelGenerator] End-Cap 프리팹에 DoorSocket이 필요합니다(정합 기준).");
-            DestroyImmediate(inst);
-            return false;
-        }
-
-        // Y축(요)만 맞추는 정합
-        var (pos, rot) = AlignYawOnly(capSock.transform, hubSocket.transform);
-        inst.transform.SetPositionAndRotation(pos, rot);
-
-        // ProcBounds 기반 겹침 검사
-        if (IsOverlapping(inst))
-        {
-            DestroyImmediate(inst);
-            return false;
-        }
-
-        _placed.Add(inst);
-        return true;
-    }
-
     private RoomDefinition PickHubCandidate(System.Random rng)
     {
-        // 1) 소스 결정
-        IEnumerable<RoomDefinition> src = (HubCandidates != null && HubCandidates.Count > 0)
-            ? HubCandidates
-            : Catalog.Where(c => (c.Tags != null) && c.Tags.Contains("Hub"));
+        // 1) 허브 후보 소스:
+        //    - HubCandidates가 있으면 그 리스트만 사용
+        //    - 없으면 Catalog 전체에서 허브로 쓸 수 있는 방을 고름
+        IEnumerable<RoomDefinition> src =
+            (HubCandidates != null && HubCandidates.Count > 0)
+                ? HubCandidates
+                : Catalog;
 
-        // 2) 필터링: 타입/문 개수/태그
+        // 2) 타입/문 개수 필터링
         var filtered = new List<(RoomDefinition def, int doorCount)>();
         foreach (var def in src)
         {
@@ -217,45 +168,33 @@ public class LevelGenerator : MonoBehaviour
             if (!typesOk) continue;
 
             int doorCount = socks.Count;
-            if (doorCount < Mathf.Max(1, RequiredHubDoorCount)) continue;
-
-            if (!string.IsNullOrEmpty(RequiredHubTag))
-            {
-                if (def.Tags == null || !def.Tags.Contains(RequiredHubTag)) continue;
-            }
+            if (doorCount <= 0) continue; // 문이 하나도 없는 방은 허브로 쓰지 않음
 
             filtered.Add((def, doorCount));
         }
 
         if (filtered.Count == 0)
         {
-            Debug.LogWarning("[LevelGenerator] 허브 후보가 없습니다. HubCandidates/Tags/조건을 확인하세요.");
+            Debug.LogWarning("[LevelGenerator] 허브 후보가 없습니다. HubCandidates/Catalog/조건을 확인하세요.");
             return null;
         }
 
-        // 3) 정렬: 항상 IOrderedEnumerable로 시드한 뒤 ThenBy 체인
-        IOrderedEnumerable<(RoomDefinition def, int doorCount)> ordered =
-            (PreferMoreDoors)
-                ? filtered.OrderByDescending(x => x.doorCount)
-                : filtered.OrderBy(x => 0); // 중립 시드(항상 IOrderedEnumerable 보장)
+        // 3) 모든 허브가 "동일한 확률"로 선택되도록 균등 랜덤
+        int idx = rng.Next(filtered.Count);
+        var chosen = filtered[idx];
 
-        if (PreferHigherHubAffinity)
-            ordered = ordered.ThenByDescending(x => x.def.HubAffinity);
+        // 선택된 허브의 문 개수를 RequiredHubDoorCount에 기록
+        RequiredHubDoorCount = chosen.doorCount;
 
-        // 가중치 섞기(작을수록 앞)
-        var final = ordered.ThenBy(x => rng.NextDouble() / Mathf.Max(0.0001f, x.def.Weight));
-
-        return final.First().def;
+        return chosen.def;
     }
-
 
     private bool TryAttachOneRoomToHubSocket(DoorSocket hubSocket, System.Random rng)
     {
         // 허브 소켓 타입과 호환되는 후보 방
         var candidates = Catalog
             .Where(c => HasSocketOfType(c, hubSocket.Type))
-            .OrderByDescending(c => c.HubAffinity)
-            .ThenBy(x => rng.NextDouble() / Mathf.Max(0.0001f, x.Weight))
+            .OrderBy(_ => rng.NextDouble())   // HubAffinity / Weight 대신 단순 랜덤
             .ToList();
 
         int tries = 0;
@@ -274,7 +213,19 @@ public class LevelGenerator : MonoBehaviour
                     var inst = Instantiate(cand.Prefab, pos, rotWorld, RootOrSelf());
                     if (!IsOverlapping(inst))
                     {
-                        _placed.Add(inst);
+                        // 방 등록
+                        RegisterRoomInstance(inst, cand);
+
+                        // 허브 방(GameObject) 찾기
+                        var hubRoom = FindRoomRootForSocket(hubSocket);
+                        if (hubRoom != null)
+                        {
+                            RegisterConnection(hubRoom, inst);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("[LevelGenerator] 허브 소켓 상위에서 배치된 방을 찾지 못했습니다.");
+                        }
 
                         // 연결된 소켓 닫기
                         CloseConnectedSocket(inst, candSock.name);
@@ -298,7 +249,7 @@ public class LevelGenerator : MonoBehaviour
             if (tries >= MaxTriesPerSocket) break;
         }
 
-        // 실패: 필요하면 허브 소켓을 End-Cap으로 마감하는 함수 호출 가능
+        // 실패
         return false;
     }
 
@@ -314,9 +265,11 @@ public class LevelGenerator : MonoBehaviour
     [ContextMenu("Clear All")]
     public void ClearAll()
     {
-        Debug.Log("Clear All Start");
+        //Debug.Log("Clear All Start");
         foreach (var go in _placed) if (go) DestroyImmediate(go);
         _placed.Clear();
+        _roomDefs.Clear();
+        _roomConnections.Clear();
 
         if (!Root) Root = transform;
         var toDel = new List<GameObject>();
@@ -327,7 +280,7 @@ public class LevelGenerator : MonoBehaviour
     private GameObject PlaceRoom(RoomDefinition def, Vector3 pos, Quaternion rot)
     {
         var inst = Instantiate(def.Prefab, pos, rot, RootOrSelf());
-        _placed.Add(inst);
+        RegisterRoomInstance(inst, def);
         return inst;
     }
 
@@ -350,10 +303,6 @@ public class LevelGenerator : MonoBehaviour
 
     private IEnumerable<Quaternion> CandidateRotations(RoomDefinition def)
     {
-        if (!def.AllowRotate90)
-        {
-            yield return Quaternion.identity; yield break;
-        }
         yield return Quaternion.identity;
         yield return Quaternion.Euler(0, 90, 0);
         yield return Quaternion.Euler(0, 180, 0);
@@ -362,16 +311,14 @@ public class LevelGenerator : MonoBehaviour
 
     private IEnumerable<RoomDefinition> WeightedPool(List<RoomDefinition> list, System.Random rng)
     {
-        return list.OrderBy(r => rng.NextDouble() / Mathf.Max(0.0001f, r.Weight));
+        return list.OrderBy(_ => rng.NextDouble());
     }
 
     private RoomDefinition RandomWeighted(List<RoomDefinition> list, System.Random rng)
     {
-        float sum = list.Sum(x => x.Weight);
-        double pick = rng.NextDouble() * sum;
-        float acc = 0f;
-        foreach (var r in list) { acc += r.Weight; if (pick <= acc) return r; }
-        return list[^1];
+        if (list == null || list.Count == 0) return null;
+        int index = rng.Next(list.Count);
+        return list[index];
     }
 
     private static void ShuffleInPlace<T>(IList<T> list, System.Random rng)
@@ -467,6 +414,41 @@ public class LevelGenerator : MonoBehaviour
         return 0;
     }
 
+    private void RegisterRoomInstance(GameObject inst, RoomDefinition def = null)
+    {
+        _placed.Add(inst);
+
+        if (def != null)
+        {
+            _roomDefs[inst] = def;
+        }
+
+        if (!_roomConnections.ContainsKey(inst))
+        {
+            _roomConnections[inst] = new HashSet<GameObject>();
+        }
+    }
+
+    private void RegisterConnection(GameObject a, GameObject b)
+    {
+        if (a == null || b == null || a == b) return;
+
+        if (!_roomConnections.TryGetValue(a, out var listA))
+        {
+            listA = new HashSet<GameObject>();
+            _roomConnections[a] = listA;
+        }
+        if (!_roomConnections.TryGetValue(b, out var listB))
+        {
+            listB = new HashSet<GameObject>();
+            _roomConnections[b] = listB;
+        }
+
+        listA.Add(b);
+        listB.Add(a);
+    }
+
+
     // 임시 인스턴스를 using으로 자동 파괴
     private readonly struct TempRoomInstance : System.IDisposable
     {
@@ -481,4 +463,91 @@ public class LevelGenerator : MonoBehaviour
         }
         public void Dispose() { if (Inst) Object.DestroyImmediate(Inst); }
     }
+
+    private GameObject FindRoomRootForSocket(DoorSocket socket)
+    {
+        Transform t = socket.transform;
+        while (t != null)
+        {
+            var go = t.gameObject;
+            if (_roomConnections.ContainsKey(go))
+            {
+                // RegisterRoomInstance 로 등록된 방 인스턴스를 찾으면 반환
+                return go;
+            }
+
+            t = t.parent;
+        }
+        return null;
+    }
+
+    [System.Serializable]
+    private class MapExport
+    {
+        public List<MapRoom> map;
+    }
+
+    [System.Serializable]
+    private class MapRoom
+    {
+        public string id;
+        public string name;
+        public string description;
+        public List<MapRoomConnection> connection;
+    }
+
+    [System.Serializable]
+    private class MapRoomConnection
+    {
+        public string id;
+    }
+
+    /// <summary>
+    /// 현재 배치된 방 정보를 JSON 문자열로 반환
+    /// </summary>
+    public string ExportMapJson()
+    {
+        var export = new MapExport
+        {
+            map = new List<MapRoom>()
+        };
+
+        foreach (var roomGo in _placed)
+        {
+            if (roomGo == null) continue;
+
+            // EndCap 같은 RoomDefinition 없는 방은 JSON에서 제외
+            if (!_roomDefs.TryGetValue(roomGo, out var def) || def == null)
+                continue;
+
+            var room = new MapRoom
+            {
+                id = !string.IsNullOrEmpty(def.Id) ? def.Id : roomGo.name,
+                name = !string.IsNullOrEmpty(def.DisplayName) ? def.DisplayName : def.name,
+                description = def.Description ?? string.Empty,
+                connection = new List<MapRoomConnection>()
+            };
+
+            if (_roomConnections.TryGetValue(roomGo, out var neighbors))
+            {
+                foreach (var neighbor in neighbors)
+                {
+                    if (neighbor == null) continue;
+                    if (!_roomDefs.TryGetValue(neighbor, out var nDef) || nDef == null)
+                        continue;
+
+                    room.connection.Add(new MapRoomConnection
+                    {
+                        id = !string.IsNullOrEmpty(nDef.Id) ? nDef.Id : neighbor.name
+                    });
+                }
+            }
+
+            export.map.Add(room);
+        }
+
+        // Unity 기본 JsonUtility 사용
+        return JsonUtility.ToJson(export, true);
+    }
+
 }
