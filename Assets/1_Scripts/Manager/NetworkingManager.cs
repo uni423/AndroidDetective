@@ -18,7 +18,7 @@ public class NetworkingManager : MonoBehaviour
         DefaultURL = "http://" + IP + ":" + Port;
     }
 
-    public string StartGame(string userId, string map, string clues)
+    public string StartGame(string userId, MapExport map, ClueListWrapper clues)
     {
         GameInfo gameInfo = new GameInfo();
         gameInfo.userId = userId;
@@ -97,6 +97,6 @@ public class GameInfo
 {
     public string userId;
     public string mode;
-    public string map;
-    public string clues;
+    public MapExport map;
+    public ClueListWrapper clues;
 }

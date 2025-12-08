@@ -13,6 +13,7 @@ public enum UIState
 
     //IngameUI
     Game_QRUI,
+    Game_CreateLoadingUI, 
     Game_MainUI,
 
 }
@@ -53,6 +54,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowUI(UIState state)
     {
+        Debug.Log("ShowUI");
         curState = state;
 
         if (uiDataLists.Count >= (int)state && uiDataLists[(int)state] != null)

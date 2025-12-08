@@ -54,17 +54,18 @@ public class InGameManager : MonoBehaviour
     {
         // 맵 생성 (테마 선택) 
         LevelGenerator.GenerateHubAuto();
-        Debug.Log(LevelGenerator.ExportMapJson());
+        //Debug.Log(LevelGenerator.ExportMapJson());
 
         // 증거품 선택 
-
         wrapper = clueJsonGenerator.BuildRandomCluesJson();
 
         string guid = System.Guid.NewGuid().ToString("N");
         PlayerId = guid.Substring(0, 8);
 
-        NetworkingManager.StartGame(PlayerId, LevelGenerator.ExportMapJson(), JsonUtility.ToJson(wrapper, true));
-        NetworkingManager.PopupPhoneQRWeb(PlayerId);
+        //NetworkingManager.StartGame(PlayerId, LevelGenerator.ExportMapJson(), wrapper);
+        //NetworkingManager.PopupPhoneQRWeb(PlayerId);
+
+        UIManager.Instance.ShowUI(UIState.Game_CreateLoadingUI);
     }
 
     public static void DoGameStart()

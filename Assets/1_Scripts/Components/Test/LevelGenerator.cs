@@ -481,31 +481,10 @@ public class LevelGenerator : MonoBehaviour
         return null;
     }
 
-    [System.Serializable]
-    private class MapExport
-    {
-        public List<MapRoom> map;
-    }
-
-    [System.Serializable]
-    private class MapRoom
-    {
-        public string id;
-        public string name;
-        public string description;
-        public List<MapRoomConnection> connection;
-    }
-
-    [System.Serializable]
-    private class MapRoomConnection
-    {
-        public string id;
-    }
-
     /// <summary>
     /// 현재 배치된 방 정보를 JSON 문자열로 반환
     /// </summary>
-    public string ExportMapJson()
+    public MapExport ExportMapJson()
     {
         var export = new MapExport
         {
@@ -547,7 +526,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         // Unity 기본 JsonUtility 사용
-        return JsonUtility.ToJson(export, true);
+        return export;
     }
 
 }
