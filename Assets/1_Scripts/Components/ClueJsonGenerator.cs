@@ -6,7 +6,7 @@ public class ClueJsonGenerator : MonoBehaviour
     [Header("·£´ýÀ¸·Î »ÌÀ» ´Ü¼­ ÇÁ¸®ÆÕ ¸®½ºÆ®")]
     public List<GameObject> cluePrefabs = new List<GameObject>();
 
-    public ClueListWrapper BuildRandomCluesJson()
+    public ClueListWrapper ChoiceRandomClues()
     {
         ClueListWrapper wrapper = new ClueListWrapper();
 

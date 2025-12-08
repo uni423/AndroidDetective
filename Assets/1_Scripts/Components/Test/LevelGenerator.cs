@@ -495,7 +495,6 @@ public class LevelGenerator : MonoBehaviour
         {
             if (roomGo == null) continue;
 
-            // EndCap 같은 RoomDefinition 없는 방은 JSON에서 제외
             if (!_roomDefs.TryGetValue(roomGo, out var def) || def == null)
                 continue;
 
@@ -517,7 +516,9 @@ public class LevelGenerator : MonoBehaviour
 
                     room.connection.Add(new MapRoomConnection
                     {
-                        id = !string.IsNullOrEmpty(nDef.Id) ? nDef.Id : neighbor.name
+                        id = !string.IsNullOrEmpty(nDef.Id) ? nDef.Id : neighbor.name,
+                        name = !string.IsNullOrEmpty(nDef.DisplayName) ? nDef.DisplayName : nDef.name,
+                        description = nDef.Description ?? string.Empty
                     });
                 }
             }

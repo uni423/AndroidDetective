@@ -11,9 +11,12 @@ public class InGameManager : MonoBehaviour
     public ClueJsonGenerator clueJsonGenerator;
 
     public ClueListWrapper wrapper;
+
     public string PlayerId;
+    public PlayerController playerController;
 
     public NetworkingManager NetworkingManager;
+    public ScenarioResponse LastScenario;
 
     public static bool IsPlaying;
     public static bool IsContinue;
@@ -22,14 +25,11 @@ public class InGameManager : MonoBehaviour
     private float time;
     public float gameTime;
 
-    public InGameStep InGameStep;
+    public InGameStep m_InGameStep;
 
-    //public void Init()
     protected void Awake()
     {
         Instance = this;
-
-        //ObjectPooling = FindObjectOfType<ObjectPooling>();
 
         IsPlaying = false;
         IsContinue = false;
@@ -41,11 +41,11 @@ public class InGameManager : MonoBehaviour
         UIManager.Instance.Init();
         NetworkingManager.Init();
 
-        InGameStep = InGameStep.QRConnectWait;
+        m_InGameStep = InGameStep.CreateGameLoading;
 
         DoGameSettingFlow();
 
-        DoGameStart();
+        //DoGameStart();
 
         gameTime = 60;
     }
@@ -57,23 +57,20 @@ public class InGameManager : MonoBehaviour
         //Debug.Log(LevelGenerator.ExportMapJson());
 
         // 증거품 선택 
-        wrapper = clueJsonGenerator.BuildRandomCluesJson();
+        wrapper = clueJsonGenerator.ChoiceRandomClues();
 
         string guid = System.Guid.NewGuid().ToString("N");
         PlayerId = guid.Substring(0, 8);
 
-        //NetworkingManager.StartGame(PlayerId, LevelGenerator.ExportMapJson(), wrapper);
-        //NetworkingManager.PopupPhoneQRWeb(PlayerId);
+        NetworkingManager.StartGame(PlayerId, LevelGenerator.ExportMapJson(), wrapper,
+            onSuccess: (scenario) => 
+            { 
+                LastScenario = scenario;
+                ChangeInGameStep(InGameStep.QRConnectWait);
+            },
+            onError: (err) => { Debug.LogError("StartGame 실패: " + err); });
 
         UIManager.Instance.ShowUI(UIState.Game_CreateLoadingUI);
-    }
-
-    public static void DoGameStart()
-    {
-        GameManager.Instance.gameStep = GameStep.Playing;
-
-        IsPlaying = true;
-        IsReSetting = false;
     }
 
     private void Update()
@@ -99,13 +96,30 @@ public class InGameManager : MonoBehaviour
 
     public void ChangeInGameStep(InGameStep ChangeStep)
     {
-        if (InGameStep == InGameStep.QRConnectWait
-            && ChangeStep == InGameStep.StartGame)
+        switch(m_InGameStep)
         {
-            DoGameStart();
+            case InGameStep.CreateGameLoading:
+                if (ChangeStep == InGameStep.QRConnectWait)
+                {
+                    NetworkingManager.PopupPhoneQRWeb(PlayerId);
+                    UIManager.Instance.HideUI(UIState.Game_CreateLoadingUI);
+                    UIManager.Instance.ShowUI(UIState.Game_QRUI);
+                }
+                break;
+            case InGameStep.QRConnectWait:
+                if (ChangeStep == InGameStep.StartGame)
+                {
+                    GameManager.Instance.gameStep = GameStep.Playing;
+
+                    IsPlaying = true;
+                    IsReSetting = false;
+                }
+                break;
+            case InGameStep.StartGame:
+                break;
         }
 
-        InGameStep = ChangeStep;
+        m_InGameStep = ChangeStep;
     }
 
     //private void LateUpdate()
@@ -120,7 +134,7 @@ public class InGameManager : MonoBehaviour
     //        time -= rabbitSpawnTime;
 
     //        int randomInt = 0;
-            
+
     //        switch (GameManager.Instance.UserInfoData.selectedStage)
     //        {
     //            case 1: randomInt = Random.Range(0, 2); break;

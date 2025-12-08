@@ -12,8 +12,8 @@ public enum UIState
     Title_QuitUI,
 
     //IngameUI
-    Game_QRUI,
     Game_CreateLoadingUI, 
+    Game_QRUI,
     Game_MainUI,
 
 }
@@ -54,7 +54,6 @@ public class UIManager : MonoBehaviour
 
     public void ShowUI(UIState state)
     {
-        Debug.Log("ShowUI");
         curState = state;
 
         if (uiDataLists.Count >= (int)state && uiDataLists[(int)state] != null)

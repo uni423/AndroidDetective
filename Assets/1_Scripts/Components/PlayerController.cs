@@ -21,8 +21,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        MouseLook();
-        Move();
+        if (InGameManager.Instance.m_InGameStep == InGameStep.Playing)
+        {
+            MouseLook();
+            Move();
+        }
     }
 
     void MouseLook()

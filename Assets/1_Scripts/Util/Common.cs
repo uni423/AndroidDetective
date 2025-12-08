@@ -18,7 +18,8 @@ public enum InGameStep
 {
     QRConnectWait,
     CreateGameLoading, 
-    StartGame, 
+    StartGame,
+    Playing, 
 }
 
 public enum AttackType
@@ -48,6 +49,59 @@ public class MapRoom
 public class MapRoomConnection
 {
     public string id;
+    public string name;
+    public string description;
+}
+
+[System.Serializable]
+public class ScenarioResponse
+{
+    public string title;
+    public string background;
+    public Suspect[] suspects;
+    public PublicView publicView;
+    // map, clues 는 현재 null 이라서 일단 생략 (JSON에 있어도 자동으로 무시됨)
+}
+
+[System.Serializable]
+public class Suspect
+{
+    public string id;
+    public string name;
+    public int age;
+    public string job;
+    public string role;
+    public Relationship[] relationships;
+    public Alibi alibi;
+}
+
+[System.Serializable]
+public class Relationship
+{
+    public string with;
+    public string type;
+    public string note;
+}
+
+[System.Serializable]
+public class Alibi
+{
+    public string summary;
+    public string detail;
+}
+
+[System.Serializable]
+public class PublicView
+{
+    public string overview;
+    public SuspectSummary[] suspectSummaries;
+}
+
+[System.Serializable]
+public class SuspectSummary
+{
+    public string npcId;
+    public string text;
 }
 
 #endregion [ JSON Create Class ]

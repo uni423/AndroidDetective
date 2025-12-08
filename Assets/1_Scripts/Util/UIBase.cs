@@ -14,7 +14,6 @@ public abstract class UIBase : MonoBehaviour
     public virtual void ActiveOn()
     {
         gameObject.SetActive(true);
-        Debug.Log("ActiveOnBase");
     }
 
     public virtual void ShowUI()
