@@ -15,6 +15,8 @@ public enum UIState
     Game_CreateLoadingUI, 
     Game_QRUI,
     Game_MainUI,
+    Game_PauseUI, 
+    Game_QuitUI,
 
 }
 public class UIManager : MonoBehaviour

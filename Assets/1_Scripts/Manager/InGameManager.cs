@@ -73,6 +73,16 @@ public class InGameManager : MonoBehaviour
         UIManager.Instance.ShowUI(UIState.Game_CreateLoadingUI);
     }
 
+    public void DoPause()
+    {
+        IsPlaying = false;
+    }
+
+    public void DoResume()
+    {
+        IsPlaying = true;
+    }
+
     private void Update()
     {
         //if (IsPlaying == false)
@@ -112,7 +122,7 @@ public class InGameManager : MonoBehaviour
                     GameManager.Instance.gameStep = GameStep.Playing;
 
                     IsPlaying = true;
-                    IsReSetting = false;
+                    //IsReSetting = false;
                 }
                 break;
             case InGameStep.StartGame:
