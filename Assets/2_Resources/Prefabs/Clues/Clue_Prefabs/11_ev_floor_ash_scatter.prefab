@@ -173,7 +173,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.2, w: 0.8}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: -27582984396182143}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 11_ev_floor_ash_scatter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,6 @@ MonoBehaviour:
   clueName: "\uC7AC\uAC00\uB8E8 \uD769\uBFCC\uB9BC"
   description: "\uC7BF\uBE5B \uBD84\uB9D0\uC774 \uC791\uC740 \uC810\uBB34\uB2AC\uB85C
     \uACE0\uB974\uAC8C \uD769\uC5B4\uC9D0."
+  spawnType: 0
+  location: 
+  isFind: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7395332957926021560}
   - component: {fileID: -5607818369923847926}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 4_ev_floor_metal_chips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,6 +49,9 @@ MonoBehaviour:
   clueName: "\uAE08\uC18D \uBD80\uC2A4\uB7EC\uAE30 \uC54C\uAC31\uC774"
   description: "\uD68C\uC0C9 \uAE08\uC18D \uC870\uAC01\uB4E4\uC774 \uD769\uC5B4\uC838
     \uC788\uC74C. "
+  spawnType: 0
+  location: 
+  isFind: 0
 --- !u!1001 &5477838540550046956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,6 +103,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e568414cb98ab2441a0d169b8ebd42a2, type: 3}
       propertyPath: m_Name
       value: ev_floor_metal_chips_1105130059_texture
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e568414cb98ab2441a0d169b8ebd42a2, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: e568414cb98ab2441a0d169b8ebd42a2, type: 3}
       propertyPath: m_Layer

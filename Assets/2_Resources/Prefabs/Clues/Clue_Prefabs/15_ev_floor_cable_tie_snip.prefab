@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1390328934480795288}
   - component: {fileID: 6121318732117146059}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 15_ev_floor_cable_tie_snip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,6 +102,9 @@ MonoBehaviour:
   clueName: "\uC798\uB9B0 \uCF00\uC774\uBE14 \uD0C0\uC774 \uC870\uAC01"
   description: "\uD1B1\uB2C8 \uB760\uAC00 \uBC18\uCBE4 \uB9D0\uB9B0 \uCC44 \uC798\uB824\uB098\uAC04
     \uCF00\uC774\uBE14 \uD0C0\uC774."
+  spawnType: 0
+  location: 
+  isFind: 0
 --- !u!1001 &2044653965115718022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -153,6 +156,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 040726b5253c5984996ae7529da1dd70, type: 3}
       propertyPath: m_Name
       value: ev_floor_cable_tie_sn_1203124325_texture
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 040726b5253c5984996ae7529da1dd70, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 040726b5253c5984996ae7529da1dd70, type: 3}
       propertyPath: m_Layer

@@ -120,7 +120,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.6, w: 0}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: -3065527222796186723}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 29_ev_wall_pencil_note_mark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,6 @@ MonoBehaviour:
   clueName: "\uC5F0\uD544\uB85C \uC4F1 \uC4F4 \uB099\uC11C \uD754\uC801"
   description: "\uD76C\uBBF8\uD55C \uAE00\uC790\xB7\uC22B\uC790, \uBD80\uBD84\uC801
     \uC9C0\uC6B0\uAC1C \uC790\uAD6D."
+  spawnType: 1
+  location: 
+  isFind: 0

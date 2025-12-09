@@ -120,7 +120,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.2, w: 0.4}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: 4915689844066690219}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 17_ev_wall_fine_scratches
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,6 @@ MonoBehaviour:
   clueName: "\uC587\uAC8C \uAE01\uD78C \uC2A4\uD06C\uB798\uCE58"
   description: "\uAC00\uB294 \uC120\uD615 \uAE01\uD798\uC774 2\uC904\uB85C \uD3C9\uD589\uD558\uAC8C
     \uC874\uC7AC."
+  spawnType: 1
+  location: 
+  isFind: 0

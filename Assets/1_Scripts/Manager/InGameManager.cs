@@ -10,7 +10,7 @@ public class InGameManager : MonoBehaviour
     public LevelGenerator LevelGenerator;
     public ClueJsonGenerator clueJsonGenerator;
 
-    public ClueListWrapper wrapper;
+    public List<ClueData> clues;
 
     public string PlayerId;
     public PlayerController playerController;
@@ -43,6 +43,8 @@ public class InGameManager : MonoBehaviour
 
         m_InGameStep = InGameStep.CreateGameLoading;
 
+        //playerController.gameObject.SetActive(false);
+
         DoGameSettingFlow();
 
         //DoGameStart();
@@ -57,12 +59,12 @@ public class InGameManager : MonoBehaviour
         //Debug.Log(LevelGenerator.ExportMapJson());
 
         // 증거품 선택 
-        wrapper = clueJsonGenerator.ChoiceRandomClues();
+        clues = clueJsonGenerator.ChoiceRandomClues(LevelGenerator.GetPlacedRoomMetas());
 
         string guid = System.Guid.NewGuid().ToString("N");
         PlayerId = guid.Substring(0, 8);
 
-        NetworkingManager.StartGame(PlayerId, LevelGenerator.ExportMapJson(), wrapper,
+        NetworkingManager.StartGame(PlayerId, LevelGenerator.ExportMapJson(), clues,
             onSuccess: (scenario) => 
             { 
                 LastScenario = scenario;
@@ -75,11 +77,13 @@ public class InGameManager : MonoBehaviour
 
     public void DoPause()
     {
+        ChangeInGameStep(InGameStep.Pause);
         IsPlaying = false;
     }
 
     public void DoResume()
     {
+        ChangeInGameStep(InGameStep.Playing);
         IsPlaying = true;
     }
 
@@ -117,19 +121,25 @@ public class InGameManager : MonoBehaviour
                 }
                 break;
             case InGameStep.QRConnectWait:
-                if (ChangeStep == InGameStep.StartGame)
+                if (ChangeStep == InGameStep.Playing)
                 {
                     GameManager.Instance.gameStep = GameStep.Playing;
 
                     IsPlaying = true;
-                    //IsReSetting = false;
                 }
                 break;
-            case InGameStep.StartGame:
+            case InGameStep.Playing:
+                break;
+            case InGameStep.Pause:
                 break;
         }
 
         m_InGameStep = ChangeStep;
+    }
+
+    public void FindGetClue(ClueMeta clue)
+    {
+        NetworkingManager.SendGetClueInfo(PlayerId, clue);
     }
 
     //private void LateUpdate()

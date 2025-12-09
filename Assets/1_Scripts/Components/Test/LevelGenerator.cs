@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     [Header("카탈로그(붙일 방들)")]
-    public List<RoomDefinition> Catalog;
+    public List<RoomMeta> Catalog;
 
     [Header("일반 생성 옵션")]
     [Min(1)] public int TargetRoomCount = 5;
@@ -18,7 +18,7 @@ public class LevelGenerator : MonoBehaviour
 
     // 허브(거실) 생성 옵션
     [Header("허브(거실) 후보 설정")]
-    public List<RoomDefinition> HubCandidates; // 비우면 Catalog에서 Tag="Hub" 자동 추출
+    public List<RoomMeta> HubCandidates; // 비우면 Catalog에서 Tag="Hub" 자동 추출
     public int RequiredHubDoorCount = 0;       // 허브 최소 문 개수(예: 4 또는 5)
     public DoorType[] AllowedHubDoorTypes;     // 비우면 모든 타입 허용
 
@@ -29,7 +29,7 @@ public class LevelGenerator : MonoBehaviour
     // 내부 상태
     private readonly List<GameObject> _placed = new();
 
-    private readonly Dictionary<GameObject, RoomDefinition> _roomDefs = new();
+    private readonly Dictionary<GameObject, RoomMeta> _roomDefs = new();
     private readonly Dictionary<GameObject, HashSet<GameObject>> _roomConnections = new();
 
     private void Start()
@@ -63,7 +63,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 foreach (var rot in CandidateRotations(cand))
                 {
-                    using var temp = new TempRoomInstance(cand.Prefab, rot);
+                    using var temp = new TempRoomInstance(cand.gameObject, rot);
                     var candSockets = temp.Sockets;
                     foreach (var candSock in candSockets)
                     {
@@ -71,7 +71,7 @@ public class LevelGenerator : MonoBehaviour
 
                         var (pos, rotWorld) = AlignYawOnly(candSock.transform, baseSock.transform);
 
-                        var inst = Instantiate(cand.Prefab, pos, rotWorld, RootOrSelf());
+                        var inst = Instantiate(cand.gameObject, pos, rotWorld, RootOrSelf());
                         if (!IsOverlapping(inst))
                         {
                             // 방 등록 + 연결 기록
@@ -122,7 +122,7 @@ public class LevelGenerator : MonoBehaviour
         while (isGenerateRoomSuccess == false);
     }
 
-    public bool GenerateHubWith(RoomDefinition hubDef, System.Random rng = null)
+    public bool GenerateHubWith(RoomMeta hubDef, System.Random rng = null)
     {
         if (rng == null) rng = new System.Random();
 
@@ -142,21 +142,21 @@ public class LevelGenerator : MonoBehaviour
         return true;
     }
 
-    private RoomDefinition PickHubCandidate(System.Random rng)
+    private RoomMeta PickHubCandidate(System.Random rng)
     {
         // 1) 허브 후보 소스:
         //    - HubCandidates가 있으면 그 리스트만 사용
         //    - 없으면 Catalog 전체에서 허브로 쓸 수 있는 방을 고름
-        IEnumerable<RoomDefinition> src =
+        IEnumerable<RoomMeta> src =
             (HubCandidates != null && HubCandidates.Count > 0)
                 ? HubCandidates
                 : Catalog;
 
         // 2) 타입/문 개수 필터링
-        var filtered = new List<(RoomDefinition def, int doorCount)>();
+        var filtered = new List<(RoomMeta def, int doorCount)>();
         foreach (var def in src)
         {
-            using var temp = new TempRoomInstance(def.Prefab, Quaternion.identity);
+            using var temp = new TempRoomInstance(def.gameObject, Quaternion.identity);
             var socks = temp.Sockets;
 
             bool typesOk = true;
@@ -179,11 +179,9 @@ public class LevelGenerator : MonoBehaviour
             return null;
         }
 
-        // 3) 모든 허브가 "동일한 확률"로 선택되도록 균등 랜덤
         int idx = rng.Next(filtered.Count);
         var chosen = filtered[idx];
 
-        // 선택된 허브의 문 개수를 RequiredHubDoorCount에 기록
         RequiredHubDoorCount = chosen.doorCount;
 
         return chosen.def;
@@ -202,7 +200,7 @@ public class LevelGenerator : MonoBehaviour
         {
             foreach (var rot in CandidateRotations(cand))
             {
-                using var temp = new TempRoomInstance(cand.Prefab, rot);
+                using var temp = new TempRoomInstance(cand.gameObject, rot);
                 var candSockets = temp.Sockets.Where(s => s.Type == hubSocket.Type).ToList();
                 ShuffleInPlace(candSockets, rng);
 
@@ -210,7 +208,7 @@ public class LevelGenerator : MonoBehaviour
                 {
                     var (pos, rotWorld) = AlignYawOnly(candSock.transform, hubSocket.transform);
 
-                    var inst = Instantiate(cand.Prefab, pos, rotWorld, RootOrSelf());
+                    var inst = Instantiate(cand.gameObject, pos, rotWorld, RootOrSelf());
                     if (!IsOverlapping(inst))
                     {
                         // 방 등록
@@ -277,9 +275,9 @@ public class LevelGenerator : MonoBehaviour
         foreach (var g in toDel) DestroyImmediate(g);
     }
 
-    private GameObject PlaceRoom(RoomDefinition def, Vector3 pos, Quaternion rot)
+    private GameObject PlaceRoom(RoomMeta def, Vector3 pos, Quaternion rot)
     {
-        var inst = Instantiate(def.Prefab, pos, rot, RootOrSelf());
+        var inst = Instantiate(def.gameObject, pos, rot, RootOrSelf());
         RegisterRoomInstance(inst, def);
         return inst;
     }
@@ -301,7 +299,7 @@ public class LevelGenerator : MonoBehaviour
                 .FirstOrDefault(x => x.name == candSocketName);
     }
 
-    private IEnumerable<Quaternion> CandidateRotations(RoomDefinition def)
+    private IEnumerable<Quaternion> CandidateRotations(RoomMeta def)
     {
         yield return Quaternion.identity;
         yield return Quaternion.Euler(0, 90, 0);
@@ -309,12 +307,12 @@ public class LevelGenerator : MonoBehaviour
         yield return Quaternion.Euler(0, 270, 0);
     }
 
-    private IEnumerable<RoomDefinition> WeightedPool(List<RoomDefinition> list, System.Random rng)
+    private IEnumerable<RoomMeta> WeightedPool(List<RoomMeta> list, System.Random rng)
     {
         return list.OrderBy(_ => rng.NextDouble());
     }
 
-    private RoomDefinition RandomWeighted(List<RoomDefinition> list, System.Random rng)
+    private RoomMeta RandomWeighted(List<RoomMeta> list, System.Random rng)
     {
         if (list == null || list.Count == 0) return null;
         int index = rng.Next(list.Count);
@@ -330,9 +328,9 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    private bool HasSocketOfType(RoomDefinition def, DoorType t)
+    private bool HasSocketOfType(RoomMeta def, DoorType t)
     {
-        using var temp = new TempRoomInstance(def.Prefab, Quaternion.identity);
+        using var temp = new TempRoomInstance(def.gameObject, Quaternion.identity);
         return temp.Sockets.Any(s => s.Type == t);
     }
 
@@ -414,13 +412,14 @@ public class LevelGenerator : MonoBehaviour
         return 0;
     }
 
-    private void RegisterRoomInstance(GameObject inst, RoomDefinition def = null)
+    private void RegisterRoomInstance(GameObject inst, RoomMeta def = null)
     {
         _placed.Add(inst);
 
         if (def != null)
         {
-            _roomDefs[inst] = def;
+            var metaOnInstance = inst.GetComponentInChildren<RoomMeta>();
+            _roomDefs[inst] = metaOnInstance != null ? metaOnInstance : def;
         }
 
         if (!_roomConnections.ContainsKey(inst))
@@ -482,52 +481,128 @@ public class LevelGenerator : MonoBehaviour
     }
 
     /// <summary>
-    /// 현재 배치된 방 정보를 JSON 문자열로 반환
+    /// 현재 배치된 방 정보를 JSON에 쓸 수 있는 형태(List&lt;MapRoom&gt;)로 반환
+    /// - HubOnlyStar 구조 기준으로, 허브 방 1개만 내보내고
+    ///   허브에 연결된 방 정보는 connection에만 포함되도록 함.
     /// </summary>
-    public MapExport ExportMapJson()
+    public List<MapRoom> ExportMapJson()
     {
-        var export = new MapExport
-        {
-            map = new List<MapRoom>()
-        };
+        var export = new List<MapRoom>();
+
+        if (_placed == null || _placed.Count == 0)
+            return export;
+
+        // 1) 허브 후보 찾기: 연결 개수가 가장 많은 방을 허브로 간주
+        GameObject hubRoomGo = null;
+        int maxConnections = -1;
 
         foreach (var roomGo in _placed)
         {
             if (roomGo == null) continue;
 
-            if (!_roomDefs.TryGetValue(roomGo, out var def) || def == null)
-                continue;
-
-            var room = new MapRoom
+            if (_roomConnections.TryGetValue(roomGo, out var neighbors) && neighbors != null)
             {
-                id = !string.IsNullOrEmpty(def.Id) ? def.Id : roomGo.name,
-                name = !string.IsNullOrEmpty(def.DisplayName) ? def.DisplayName : def.name,
-                description = def.Description ?? string.Empty,
-                connection = new List<MapRoomConnection>()
-            };
-
-            if (_roomConnections.TryGetValue(roomGo, out var neighbors))
-            {
-                foreach (var neighbor in neighbors)
+                int count = neighbors.Count;
+                if (count > maxConnections)
                 {
-                    if (neighbor == null) continue;
-                    if (!_roomDefs.TryGetValue(neighbor, out var nDef) || nDef == null)
-                        continue;
-
-                    room.connection.Add(new MapRoomConnection
-                    {
-                        id = !string.IsNullOrEmpty(nDef.Id) ? nDef.Id : neighbor.name,
-                        name = !string.IsNullOrEmpty(nDef.DisplayName) ? nDef.DisplayName : nDef.name,
-                        description = nDef.Description ?? string.Empty
-                    });
+                    maxConnections = count;
+                    hubRoomGo = roomGo;
                 }
             }
-
-            export.map.Add(room);
         }
 
-        // Unity 기본 JsonUtility 사용
+        // 허브를 못 찾았으면(연결 정보가 없으면) 기존 방식으로 전체를 그대로 내보냄 (fallback)
+        if (hubRoomGo == null)
+        {
+            foreach (var roomGo in _placed)
+            {
+                if (roomGo == null) continue;
+
+                if (!_roomDefs.TryGetValue(roomGo, out var def) || def == null)
+                    continue;
+
+                var room = new MapRoom
+                {
+                    id = !string.IsNullOrEmpty(def.Id) ? def.Id : roomGo.name,
+                    name = !string.IsNullOrEmpty(def.DisplayName) ? def.DisplayName : def.name,
+                    description = def.Description ?? string.Empty,
+                    connection = new List<MapRoomConnection>()
+                };
+
+                if (_roomConnections.TryGetValue(roomGo, out var neighbors))
+                {
+                    foreach (var neighbor in neighbors)
+                    {
+                        if (neighbor == null) continue;
+                        if (!_roomDefs.TryGetValue(neighbor, out var nDef) || nDef == null)
+                            continue;
+
+                        room.connection.Add(new MapRoomConnection
+                        {
+                            id = !string.IsNullOrEmpty(nDef.Id) ? nDef.Id : neighbor.name,
+                            name = !string.IsNullOrEmpty(nDef.DisplayName) ? nDef.DisplayName : nDef.name,
+                            description = nDef.Description ?? string.Empty
+                        });
+                    }
+                }
+
+                export.Add(room);
+            }
+
+            return export;
+        }
+
+        // 2) 허브만 JSON에 포함시키는 모드
+        if (!_roomDefs.TryGetValue(hubRoomGo, out var hubDef) || hubDef == null)
+            return export;
+
+        var hubRoom = new MapRoom
+        {
+            id = !string.IsNullOrEmpty(hubDef.Id) ? hubDef.Id : hubRoomGo.name,
+            name = !string.IsNullOrEmpty(hubDef.DisplayName) ? hubDef.DisplayName : hubDef.name,
+            description = hubDef.Description ?? string.Empty,
+            connection = new List<MapRoomConnection>()
+        };
+
+        if (_roomConnections.TryGetValue(hubRoomGo, out var hubNeighbors))
+        {
+            foreach (var neighbor in hubNeighbors)
+            {
+                if (neighbor == null) continue;
+                if (!_roomDefs.TryGetValue(neighbor, out var nDef) || nDef == null)
+                    continue;
+
+                hubRoom.connection.Add(new MapRoomConnection
+                {
+                    id = !string.IsNullOrEmpty(nDef.Id) ? nDef.Id : neighbor.name,
+                    name = !string.IsNullOrEmpty(nDef.DisplayName) ? nDef.DisplayName : nDef.name,
+                    description = nDef.Description ?? string.Empty
+                });
+            }
+        }
+
+        export.Add(hubRoom);
         return export;
+    }
+
+
+    /// <summary>
+    /// 현재 배치된 방 인스턴스 목록을 복사하여 반환
+    /// </summary>
+    public List<GameObject> GetPlacedRooms()
+    {
+        return new List<GameObject>(_placed);
+    }
+
+    public List<RoomMeta> GetPlacedRoomMetas()
+    {
+        var result = new List<RoomMeta>();
+        foreach (var kvp in _roomDefs)
+        {
+            if (kvp.Key == null || kvp.Value == null) continue;
+            result.Add(kvp.Value); // 인스턴스 RoomMeta
+        }
+        return result;
     }
 
 }

@@ -7,24 +7,27 @@ public class ClueData
     public string id;
     public string name;
     public string description;
+    public string location;
 }
-
-[System.Serializable]
-public class ClueListWrapper
-{
-    public List<ClueData> clues = new List<ClueData>();
-}
+public enum ClueSpawnType { Floor, Wall }
 
 [DisallowMultipleComponent]
 [AddComponentMenu("MysteryGame/Clue Meta")]
 public class ClueMeta : MonoBehaviour
 {
     [Header("Clue Metadata")]
-    public string clueId;        // 비워두면 GameObject 이름 사용
-    public string clueName;      // 비워두면 GameObject 이름 사용
+    public string clueId;
+    public string clueName;
 
     [TextArea(2, 5)]
     public string description;
+
+    [Header("Spawn Type")]
+    public ClueSpawnType spawnType = ClueSpawnType.Floor;
+
+    public string location;
+
+    public bool isFind = false;
 
     public ClueData ToData()
     {
@@ -32,7 +35,10 @@ public class ClueMeta : MonoBehaviour
         {
             id = string.IsNullOrEmpty(clueId) ? gameObject.name : clueId,
             name = string.IsNullOrEmpty(clueName) ? gameObject.name : clueName,
-            description = description ?? string.Empty
+            description = description ?? string.Empty,
+            location = location ?? string.Empty
         };
     }
+
+
 }

@@ -173,7 +173,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0, w: 0.2}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: -8403823072831020449}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 8_ev_floor_granular_spill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,6 @@ MonoBehaviour:
   clueName: "\uC18C\uAE08\xB7\uC124\uD0D5 \uC3DF\uC544\uC9C4 \uD754\uC801"
   description: "\uBC1D\uC740 \uC54C\uAC31\uC774\uAC00 \uAD6C\uB984\uD615\uC73C\uB85C
     \uC0B0\uD3EC\uB428."
+  spawnType: 0
+  location: 
+  isFind: 0

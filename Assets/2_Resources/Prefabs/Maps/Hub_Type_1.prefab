@@ -195,6 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1326837810370718332}
+  - component: {fileID: -6780003251155387942}
   m_Layer: 10
   m_Name: Hub_Type_1
   m_TagString: Room
@@ -222,6 +223,39 @@ Transform:
   - {fileID: 1424019235547451844}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6780003251155387942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207657771099588424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20ef7068e001f140970cadaba689ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: Hub_Type_1
+  DisplayName: "\uD14C\uC2A4\uD2B8 \uB85C\uBE44"
+  Description: "\uD14C\uC2A4\uD2B8\uC6A9 \uBC29. \uB85C\uBE44\uC6A9 "
+  floorSpawnPoints:
+  - {fileID: 361608879539668889}
+  - {fileID: 8743157329275376495}
+  - {fileID: 5960485199603498356}
+  - {fileID: 684185243591991876}
+  - {fileID: 8025692441975613859}
+  - {fileID: 2714503352216316425}
+  wallSpawnPoints:
+  - {fileID: 3887698524497053252}
+  - {fileID: 7840099066290495496}
+  - {fileID: 6148172307914136013}
+  - {fileID: 7879543999540869784}
+  - {fileID: 10320294720265599}
+  - {fileID: 1546038826171925471}
+  - {fileID: 8875255806922819332}
+  - {fileID: 4404583922682378677}
+  - {fileID: 4523257589754993062}
+  - {fileID: 5118358034835988945}
 --- !u!1 &420673355191792202
 GameObject:
   m_ObjectHideFlags: 0

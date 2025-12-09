@@ -18,8 +18,8 @@ public enum InGameStep
 {
     QRConnectWait,
     CreateGameLoading, 
-    StartGame,
-    Playing, 
+    Playing,
+    Pause,
 }
 
 public enum AttackType
@@ -30,11 +30,6 @@ public enum AttackType
 
 #region [ JSON Create Class ]
 
-[System.Serializable]
-public class MapExport
-{
-    public List<MapRoom> map;
-}
 
 [System.Serializable]
 public class MapRoom

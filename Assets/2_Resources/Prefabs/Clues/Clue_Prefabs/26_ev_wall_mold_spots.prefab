@@ -120,7 +120,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.6, w: 0.6}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: -7158593040402279777}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 26_ev_wall_mold_spots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,6 @@ MonoBehaviour:
   clueName: "\uACF0\uD321\uC774 \uBC18\uC810"
   description: "\uB465\uAE00\uAC70\uB098 \uBD88\uADDC\uCE59\uD55C \uD751\uAC08\uC0C9
     \uBC18\uC810 \uAD70\uC9D1."
+  spawnType: 1
+  location: 
+  isFind: 0

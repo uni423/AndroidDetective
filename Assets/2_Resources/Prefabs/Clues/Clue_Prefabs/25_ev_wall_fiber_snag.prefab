@@ -173,7 +173,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.6, w: 0.8}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: 1144993908926320419}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 25_ev_wall_fiber_snag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,6 @@ MonoBehaviour:
   clueName: "\uBD99\uC5B4 \uC788\uB294 \uC9E7\uC740 \uC2E4\xB7\uC12C\uC720"
   description: "\uC9E7\uC740 \uC12C\uC720 2~3\uAC00\uB2E5\uC774 \uD45C\uBA74\uC5D0
     \uBD99\uC5B4 \uC788\uC74C."
+  spawnType: 1
+  location: 
+  isFind: 0

@@ -173,7 +173,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.8, w: 0.8}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: 6430415892109708377}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 30_ev_wall_clean_hand_silhouette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,6 @@ MonoBehaviour:
   clueName: "\uC190\uBC14\uB2E5 \uD074\uB9B0 \uC2E4\uB8E8\uC5E3"
   description: "\uBA3C\uC9C0 \uB080 \uBCBD\uBA74\uC5D0 \uC190\uBC14\uB2E5 \uBAA8\uC591\uB9CC
     \uC0C1\uB300\uC801\uC73C\uB85C \uAE68\uB057\uD558\uAC8C \uB0A8\uC740 \uC2E4\uB8E8\uC5E3."
+  spawnType: 1
+  location: 
+  isFind: 0

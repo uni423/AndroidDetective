@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7029878966020033423}
   - component: {fileID: -6464136166602632040}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 13_ev_floor_rubber_band
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,6 +102,9 @@ MonoBehaviour:
   clueName: "\uBC14\uB2E5\uC5D0 \uB5A8\uC5B4\uC9C4 \uACE0\uBB34\uC904"
   description: "\uB0A9\uC791\uD55C \uD0C0\uC6D0\uD615 \uACE0\uBB34 \uB9C1 \uD558\uB098\uAC00
     \uB193\uC5EC \uC788\uC74C."
+  spawnType: 0
+  location: 
+  isFind: 0
 --- !u!1001 &2810116858041892368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -153,6 +156,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8da21de15b49d6341bb5b58ad8ba2d0a, type: 3}
       propertyPath: m_Name
       value: ev_floor_rubber_band_1202170729_texture
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8da21de15b49d6341bb5b58ad8ba2d0a, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 8da21de15b49d6341bb5b58ad8ba2d0a, type: 3}
       propertyPath: m_Layer

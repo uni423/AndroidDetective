@@ -173,7 +173,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.4, w: 0.4}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: -1254476184449177362}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 22_ev_wall_nail_holes_cluster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,3 +226,6 @@ MonoBehaviour:
   clueId: ev_wall_nail_holes_cluster
   clueName: "\uBABB\uC790\uAD6D \uC5EC\uB7EC \uAC1C \uBAA8\uC5EC \uC788\uC74C"
   description: "\uC791\uC740 \uC6D0\uD615 \uC790\uAD6D\uC774 5\uAC1C \uAD70\uC9D1."
+  spawnType: 1
+  location: 
+  isFind: 0

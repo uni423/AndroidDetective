@@ -12,14 +12,17 @@ public class NetworkingManager : MonoBehaviour
 
     public string DefaultURL = "";
 
-    public string qrPageUrl = "phone/qr?";
+    public string qrPageUrl = "/phone/qr?";
+    public string talkNPCUrl = "/chat/talk";
+    public string galleryGetClueUrl = "/gallery/get-clue";
+    public string chatCheckAnswer = "/chat/checkAnswer";
 
     public void Init()
     {
         DefaultURL = "http://" + IP + ":" + Port;
     }
 
-    public string StartGame(string userId, MapExport map, ClueListWrapper clues,
+    public string StartGame(string userId, List<MapRoom> map, List<ClueData> clues,
                       Action<ScenarioResponse> onSuccess = null, Action<string> onError = null)
     {
         GameInfo gameInfo = new GameInfo();
@@ -36,8 +39,20 @@ public class NetworkingManager : MonoBehaviour
 
     public void PopupPhoneQRWeb(string userId)
     {
-        string url = DefaultURL + "/" + qrPageUrl + userId;
+        string url = DefaultURL + qrPageUrl + userId;
         Application.OpenURL(url);   // 외부 브라우저에서 바로 열기
+    }
+
+    public void SendGetClueInfo(string userId, ClueMeta clue)
+    {
+        GetClueInfo getClue = new GetClueInfo();
+        getClue.userId = userId;
+        getClue.clueImgId = clue.clueId;
+        getClue.clueName = clue.clueName;
+
+        string postData = JsonUtility.ToJson(getClue);
+        Debug.Log(postData);
+        StartCoroutine(PostRequest(DefaultURL + galleryGetClueUrl, postData));
     }
 
     IEnumerator PostRequest(string url, string postData)
@@ -65,31 +80,6 @@ public class NetworkingManager : MonoBehaviour
                 Debug.Log("Form upload complete!");
                 //Result.text = webRequest.downloadHandler.text;
                 //Debug.Log(webRequest.downloadHandler.text);
-            }
-        }
-    }
-
-    IEnumerator PostRequest(string url)
-    {
-        using (UnityWebRequest webRequest = new UnityWebRequest(url, "POST"))
-        {
-            webRequest.downloadHandler = new DownloadHandlerBuffer();
-            webRequest.SetRequestHeader("Content-Type", "application/json");
-
-            yield return webRequest.SendWebRequest();
-
-#if UNITY_2020_1_OR_NEWER
-            if (webRequest.result == UnityWebRequest.Result.ConnectionError ||
-                webRequest.result == UnityWebRequest.Result.ProtocolError)
-#else
-            if (webRequest.isNetworkError || webRequest.isHttpError)
-#endif
-            {
-                Debug.LogError(webRequest.error);
-            }
-            else
-            {
-                Debug.Log("Form upload complete!");
             }
         }
     }
@@ -148,6 +138,14 @@ public class GameInfo
 {
     public string userId;
     public string mode;
-    public MapExport map;
-    public ClueListWrapper clues;
+    public List<MapRoom> map;
+    public List<ClueData> clues;
+}
+
+[System.Serializable]
+public class GetClueInfo
+{
+    public string userId;
+    public string clueImgId;
+    public string clueName;
 }

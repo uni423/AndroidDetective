@@ -173,7 +173,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.2, w: 0}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: 8390738218540412493}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 19_ev_wall_efflorescence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,6 @@ MonoBehaviour:
   clueName: "\uD558\uC580 \uAC00\uB8E8 \uC5BC\uB8E9"
   description: "\uBD84\uB9D0\uC131 \uBC31\uC0C9 \uC5BC\uB8E9\uC774 \uAD6C\uB984\uCC98\uB7FC
     \uBC88\uC9D0."
+  spawnType: 1
+  location: 
+  isFind: 0

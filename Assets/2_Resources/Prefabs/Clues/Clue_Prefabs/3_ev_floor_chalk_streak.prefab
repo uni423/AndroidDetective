@@ -120,7 +120,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0, w: 0.8}
@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3481328536718485382}
   - component: {fileID: -4305469715741777457}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 3_ev_floor_chalk_streak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,6 +174,9 @@ MonoBehaviour:
   clueName: "\uBD84\uD544 \uAC00\uB8E8 \uB04C\uB9B0 \uC790\uAD6D"
   description: "\uBC31\uC0C9 \uBD84\uB9D0\uC774 \uAE38\uAC8C \uC4F8\uB824 \uB9CC\uB4E0
     \uC120\uD615 \uD754\uC801."
+  spawnType: 0
+  location: 
+  isFind: 0
 --- !u!1 &4015478637337118850
 GameObject:
   m_ObjectHideFlags: 0

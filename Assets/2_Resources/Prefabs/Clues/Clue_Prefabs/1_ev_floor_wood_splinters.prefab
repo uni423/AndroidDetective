@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 220032043554846124}
   - component: {fileID: -1554954177808171150}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 1_ev_floor_wood_splinters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,6 +49,9 @@ MonoBehaviour:
   clueName: "\uBAA9\uC7AC \uD30C\uD3B8 \uB354\uBBF8"
   description: "\uC798\uAC8C \uCABC\uAC1C\uC9C4 \uB098\uBB34 \uC870\uAC01\uC774 \uD55C\uACF3\uC5D0
     \uBAA8\uC5EC \uC788\uC74C."
+  spawnType: 0
+  location: 
+  isFind: 0
 --- !u!1001 &2789159267888099285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104,6 +107,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 472b9867d4dbe62469713d575306904b, type: 3}
       propertyPath: m_Name
       value: Desert_Shard_Formatio_1105124352_texture
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 472b9867d4dbe62469713d575306904b, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: 472b9867d4dbe62469713d575306904b, type: 3}
       propertyPath: m_Layer

@@ -43,13 +43,32 @@ public class Outline : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
         SetOutline(isOutlineActive);
     }
 
+
+    public void EnableOutline()
+    {
+        isOutlineActive = true;
+        SetOutline(true);
+    }
+
+    public void DisableOutline()
+    {
+        isOutlineActive = false;
+        SetOutline(false);
+    }
+
+    public void ToggleOutline()
+    {
+        isOutlineActive = !isOutlineActive;
+        SetOutline(isOutlineActive);
+    }
+
     private void SetOutline(bool enable)
     {
         foreach (var rend in renderers)
         {
             rend.renderingLayerMask = enable
-            ? originalLayer | outlineLayer
-            : originalLayer;
+                ? originalLayer | outlineLayer
+                : originalLayer;
         }
     }
 }

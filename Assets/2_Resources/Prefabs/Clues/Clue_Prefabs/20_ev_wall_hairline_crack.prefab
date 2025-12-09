@@ -120,7 +120,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.4, w: 0.8}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: 1515892088873716389}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 20_ev_wall_hairline_crack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,6 @@ MonoBehaviour:
   clueName: "\uAC00\uB290\uB2E4\uB780 \uAE08 \uAC04 \uC790\uAD6D"
   description: "\uC2E4\uAC19\uC774 \uC587\uC740 \uADE0\uC5F4\uC774 \uAD74\uACE1\uC9C0\uBA70
     \uC774\uC5B4\uC9D0."
+  spawnType: 1
+  location: 
+  isFind: 0

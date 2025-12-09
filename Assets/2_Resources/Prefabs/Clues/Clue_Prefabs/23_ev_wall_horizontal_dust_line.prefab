@@ -173,7 +173,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0.4, w: 0.2}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: -454456576182285263}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 23_ev_wall_horizontal_dust_line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,3 +227,6 @@ MonoBehaviour:
   clueName: "\uAC00\uB85C\uB85C \uB09C \uBA3C\uC9C0 \uC904"
   description: "\uC587\uC740 \uD68C\uC0C9 \uB760\uAC00 \uC218\uD3C9\uC73C\uB85C \uAE38\uAC8C
     \uC774\uC5B4\uC9D0."
+  spawnType: 1
+  location: 
+  isFind: 0

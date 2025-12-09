@@ -173,7 +173,7 @@ MonoBehaviour:
   overrides:
   - type: 2
     propertyName: _AlphaCutoutUVTransform
-    propertyId: 648
+    propertyId: 521
     floatValue: 0
     intValue: 0
     vectorValue: {x: 0.2, y: 0.2, z: 0, w: 0.4}
@@ -188,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2902666869321610398}
   - component: {fileID: 1562102098849338899}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: 6_ev_floor_wheel_skid_lines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,3 +226,6 @@ MonoBehaviour:
   clueId: ev_floor_wheel_skid_lines
   clueName: "\uBC14\uD034\uAC00 \uB04C\uB9B0 \uAC80\uC740 \uC904"
   description: "\uC881\uACE0 \uAE34 \uAC80\uC740 \uC120\uC774 2~3\uC904\uB85C \uC774\uC5B4\uC9D0."
+  spawnType: 0
+  location: 
+  isFind: 0
