@@ -20,6 +20,8 @@ public enum InGameStep
     CreateGameLoading, 
     Playing,
     Pause,
+    SendResultWait, 
+    Result, 
 }
 
 public enum AttackType

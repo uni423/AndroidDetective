@@ -223,10 +223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_wall_hairline_crack
+  clueId: 20_ev_wall_hairline_crack
   clueName: "\uAC00\uB290\uB2E4\uB780 \uAE08 \uAC04 \uC790\uAD6D"
   description: "\uC2E4\uAC19\uC774 \uC587\uC740 \uADE0\uC5F4\uC774 \uAD74\uACE1\uC9C0\uBA70
     \uC774\uC5B4\uC9D0."
+  clueImage: {fileID: 21300000, guid: e8cd97146d8c30842b3238192334e9b5, type: 3}
   spawnType: 1
   location: 
   isFind: 0

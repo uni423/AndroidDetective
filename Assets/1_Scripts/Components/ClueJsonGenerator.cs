@@ -159,4 +159,34 @@ public class ClueJsonGenerator : MonoBehaviour
         int idx = Random.Range(0, candidates.Count);
         return candidates[idx];
     }
+
+    public List<string> GetFindClueList()
+    {
+        List<string> foundClueIds = new List<string>();
+
+        foreach (var go in _spawnedClues)
+        {
+            if (go == null)
+                continue;
+
+            var meta = go.GetComponent<ClueMeta>();
+            if (meta == null)
+                continue;
+
+            if (!meta.isFind)
+                continue;
+
+            // 비어 있으면 GameObject 이름을 대신 사용
+            string id = string.IsNullOrEmpty(meta.clueId) ? go.name : meta.clueId;
+
+            // 중복 방지 (같은 단서를 두 번 이상 추가하지 않도록)
+            if (!foundClueIds.Contains(id))
+            {
+                foundClueIds.Add(id);
+            }
+        }
+
+        return foundClueIds;
+    }
+
 }

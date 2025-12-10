@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Game_PauseUI : UIBase
 {
-    public void OnClickResumt()
+    public void OnClickResume()
     {
         InGameManager.Instance.DoResume();
 

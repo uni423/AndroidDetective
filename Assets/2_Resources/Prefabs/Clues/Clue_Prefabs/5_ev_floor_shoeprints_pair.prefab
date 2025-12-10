@@ -277,10 +277,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_floor_shoeprints_pair
+  clueId: 5_ev_floor_shoeprints_pair
   clueName: "\uC2E0\uBC1C \uBC1C\uC790\uAD6D"
   description: "\uC2E0\uBC1C \uBC1C\uC790\uAD6D \uD328\uD134\uC774 \uC88C\uC6B0 \uD55C\uC30D\uC73C\uB85C
     \uCC0D\uD798."
+  clueImage: {fileID: 21300000, guid: ef6dc9882e1967f4d915b3acb87e204c, type: 3}
   spawnType: 0
   location: 
   isFind: 0

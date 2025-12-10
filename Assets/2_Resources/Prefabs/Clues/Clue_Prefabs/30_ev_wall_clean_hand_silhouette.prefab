@@ -223,10 +223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_wall_clean_hand_silhouette
+  clueId: 30_ev_wall_clean_hand_silhouette
   clueName: "\uC190\uBC14\uB2E5 \uD074\uB9B0 \uC2E4\uB8E8\uC5E3"
   description: "\uBA3C\uC9C0 \uB080 \uBCBD\uBA74\uC5D0 \uC190\uBC14\uB2E5 \uBAA8\uC591\uB9CC
     \uC0C1\uB300\uC801\uC73C\uB85C \uAE68\uB057\uD558\uAC8C \uB0A8\uC740 \uC2E4\uB8E8\uC5E3."
+  clueImage: {fileID: 21300000, guid: a458071a3023f464783a136374681034, type: 3}
   spawnType: 1
   location: 
   isFind: 0

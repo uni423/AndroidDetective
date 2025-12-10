@@ -223,9 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_wall_nail_holes_cluster
+  clueId: 22_ev_wall_nail_holes_cluster
   clueName: "\uBABB\uC790\uAD6D \uC5EC\uB7EC \uAC1C \uBAA8\uC5EC \uC788\uC74C"
   description: "\uC791\uC740 \uC6D0\uD615 \uC790\uAD6D\uC774 5\uAC1C \uAD70\uC9D1."
+  clueImage: {fileID: 21300000, guid: 4a7b19c9b8329bd498efa4d5b55290ff, type: 3}
   spawnType: 1
   location: 
   isFind: 0

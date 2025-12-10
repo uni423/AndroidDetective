@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_floor_wood_splinters
+  clueId: 1_ev_floor_wood_splinters
   clueName: "\uBAA9\uC7AC \uD30C\uD3B8 \uB354\uBBF8"
   description: "\uC798\uAC8C \uCABC\uAC1C\uC9C4 \uB098\uBB34 \uC870\uAC01\uC774 \uD55C\uACF3\uC5D0
     \uBAA8\uC5EC \uC788\uC74C."
+  clueImage: {fileID: 21300000, guid: 054ecb3c2d58aeb4ab99297f01b713b9, type: 3}
   spawnType: 0
   location: 
   isFind: 0

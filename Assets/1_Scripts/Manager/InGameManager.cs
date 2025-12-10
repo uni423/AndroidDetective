@@ -12,6 +12,8 @@ public class InGameManager : MonoBehaviour
 
     public List<ClueData> clues;
 
+    public NPCSpawner npcSpawner;
+
     public string PlayerId;
     public PlayerController playerController;
 
@@ -65,8 +67,11 @@ public class InGameManager : MonoBehaviour
         PlayerId = guid.Substring(0, 8);
 
         NetworkingManager.StartGame(PlayerId, LevelGenerator.ExportMapJson(), clues,
-            onSuccess: (scenario) => 
-            { 
+            onSuccess: (scenario) =>
+            {
+                var roomMetas = LevelGenerator.GetPlacedRoomMetas();
+                npcSpawner.SpawnRandomNpcs(roomMetas);
+                
                 LastScenario = scenario;
                 ChangeInGameStep(InGameStep.QRConnectWait);
             },
@@ -110,7 +115,7 @@ public class InGameManager : MonoBehaviour
 
     public void ChangeInGameStep(InGameStep ChangeStep)
     {
-        switch(m_InGameStep)
+        switch (m_InGameStep)
         {
             case InGameStep.CreateGameLoading:
                 if (ChangeStep == InGameStep.QRConnectWait)
@@ -137,9 +142,54 @@ public class InGameManager : MonoBehaviour
         m_InGameStep = ChangeStep;
     }
 
+
+    public Suspect CurChatNPC = new Suspect();
+    public void NPCChatStart(Suspect ChatSuspect)
+    {
+        CurChatNPC = ChatSuspect;
+    }
+
+    public void SendNPCChat(string SendMessageText)
+    {
+        NetworkingManager.SendNPCChat(PlayerId, SendMessageText, CurChatNPC.id, clueJsonGenerator.GetFindClueList(),
+            onSuccess: replyText =>
+            {
+                Debug.Log("NPC 답변: " + replyText);
+                (UIManager.Instance.uiDataLists[(int)UIState.Game_NPCChatUI] as Game_NPCChatUI).SetNPC(CurChatNPC.name, replyText);
+            },
+            onError: err => { Debug.LogError("NPC 대화 실패: " + err);} );
+    }
+
     public void FindGetClue(ClueMeta clue)
     {
+        clue.isFind = true;
+
         NetworkingManager.SendGetClueInfo(PlayerId, clue);
+
+        DoPause();
+
+        UIManager.Instance.HideUI(UIState.Game_MainUI);
+        UIManager.Instance.ShowUI(UIState.Game_GetClueUI);
+
+        (UIManager.Instance.uiDataLists[(int)UIState.Game_GetClueUI] as Game_GetClueUI).SetClue(clue);
+    }
+
+    public void SendResult(string SelectedNpcId, string InputReasonText)
+    {
+        NetworkingManager.SendResult(PlayerId, SelectedNpcId, InputReasonText,
+            onSuccess: resp =>
+            {
+                Debug.Log($"정답 여부: {resp.correct}, 진범: {resp.killerName}");
+                Debug.Log(resp.caseSummary);
+
+                ChangeInGameStep(InGameStep.Result);
+
+                UIManager.Instance.HideUI(UIState.Game_SendResultUI);
+                UIManager.Instance.ShowUI(UIState.Game_ResultUI);
+
+                (UIManager.Instance.uiDataLists[(int)UIState.Game_ResultUI] as Game_ResultUI).SetResult(resp.correct, resp.caseSummary);
+            },
+            onError: (err) => { Debug.LogError("SendResult 실패: " + err); });
     }
 
     //private void LateUpdate()

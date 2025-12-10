@@ -12,7 +12,7 @@ public class NetworkingManager : MonoBehaviour
 
     public string DefaultURL = "";
 
-    public string qrPageUrl = "/phone/qr?";
+    public string qrPageUrl = "/phone/qr?userId=";
     public string talkNPCUrl = "/chat/talk";
     public string galleryGetClueUrl = "/gallery/get-clue";
     public string chatCheckAnswer = "/chat/checkAnswer";
@@ -43,6 +43,26 @@ public class NetworkingManager : MonoBehaviour
         Application.OpenURL(url);   // 외부 브라우저에서 바로 열기
     }
 
+    public void SendNPCChat(
+        string userId, string sendMessageText, string npcId, List<string> knownClues,
+        Action<string> onSuccess = null, Action<string> onError = null)
+    {
+        var req = new TalkNPCRequest
+        {
+            userId = userId,
+            playerInput = sendMessageText,
+            npcId = npcId,
+            mode = "TALK",
+            knownClues = knownClues ?? new List<string>()
+        };
+
+        string postData = JsonUtility.ToJson(req);
+        Debug.Log($"[NetworkingManager] TalkNPC Request : {postData}");
+
+        string url = DefaultURL + talkNPCUrl;   // "/chat/talk"
+        StartCoroutine(PostTalkNPCRequest(url, postData, onSuccess, onError));
+    }
+
     public void SendGetClueInfo(string userId, ClueMeta clue)
     {
         GetClueInfo getClue = new GetClueInfo();
@@ -54,6 +74,28 @@ public class NetworkingManager : MonoBehaviour
         Debug.Log(postData);
         StartCoroutine(PostRequest(DefaultURL + galleryGetClueUrl, postData));
     }
+
+    // 플레이어의 추리를 서버로 전송
+    public void SendResult(
+        string userId, string killerId, string killerReason, 
+        Action<CheckAnswerResponse> onSuccess = null, Action<string> onError = null)
+    {
+        // 보낼 JSON 구성
+        var req = new CheckAnswerRequest
+        {
+            userId = userId,
+            killerId = killerId,
+            killerReason = killerReason,
+            mode = "VERDICT"
+        };
+
+        string postData = JsonUtility.ToJson(req);
+        Debug.Log($"[NetworkingManager] CheckAnswer Request : {postData}");
+
+        string url = DefaultURL + chatCheckAnswer;   // "/chat/checkAnswer"
+        StartCoroutine(PostCheckAnswerRequest(url, postData, onSuccess, onError));
+    }
+
 
     IEnumerator PostRequest(string url, string postData)
     {
@@ -131,6 +173,87 @@ public class NetworkingManager : MonoBehaviour
         }
     }
 
+    IEnumerator PostCheckAnswerRequest(string url, string postData, Action<CheckAnswerResponse> onSuccess, Action<string> onError)
+    {
+        using (UnityWebRequest webRequest = new UnityWebRequest(url, "POST"))
+        {
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(postData);
+            webRequest.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            webRequest.downloadHandler = new DownloadHandlerBuffer();
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            Debug.Log($"[NetworkingManager] POST {url} : {postData}");
+
+            yield return webRequest.SendWebRequest();
+
+#if UNITY_2020_1_OR_NEWER
+            bool isError = webRequest.result == UnityWebRequest.Result.ConnectionError ||
+                           webRequest.result == UnityWebRequest.Result.ProtocolError;
+#else
+        bool isError = webRequest.isNetworkError || webRequest.isHttpError;
+#endif
+
+            if (isError)
+            {
+                Debug.LogError($"[NetworkingManager] CheckAnswer Error: {webRequest.error}");
+                onError?.Invoke(webRequest.error);
+                yield break;
+            }
+
+            string responseText = webRequest.downloadHandler.text;
+            Debug.Log($"[NetworkingManager] CheckAnswer Response Raw: {responseText}");
+
+            CheckAnswerResponse resp = null;
+            try
+            {
+                resp = JsonUtility.FromJson<CheckAnswerResponse>(responseText);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[NetworkingManager] CheckAnswer JSON 파싱 실패: {e.Message}");
+                onError?.Invoke("JSON parse error: " + e.Message);
+                yield break;
+            }
+
+            onSuccess?.Invoke(resp);
+        }
+    }
+
+    IEnumerator PostTalkNPCRequest(string url, string postData, Action<string> onSuccess, Action<string> onError)
+    {
+        using (UnityWebRequest webRequest = new UnityWebRequest(url, "POST"))
+        {
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(postData);
+            webRequest.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            webRequest.downloadHandler = new DownloadHandlerBuffer();
+            webRequest.SetRequestHeader("Content-Type", "application/json");
+
+            Debug.Log($"[NetworkingManager] POST {url} : {postData}");
+
+            yield return webRequest.SendWebRequest();
+
+#if UNITY_2020_1_OR_NEWER
+            bool isError = webRequest.result == UnityWebRequest.Result.ConnectionError ||
+                           webRequest.result == UnityWebRequest.Result.ProtocolError;
+#else
+        bool isError = webRequest.isNetworkError || webRequest.isHttpError;
+#endif
+
+            if (isError)
+            {
+                Debug.LogError($"[NetworkingManager] TalkNPC Error: {webRequest.error}");
+                onError?.Invoke(webRequest.error);
+                yield break;
+            }
+
+            string responseText = webRequest.downloadHandler.text;
+            Debug.Log($"[NetworkingManager] TalkNPC Response Raw: {responseText}");
+
+            // 응답은 그냥 문자열이므로 그대로 넘긴다
+            onSuccess?.Invoke(responseText);
+        }
+    }
+
 }
 
 [System.Serializable]
@@ -148,4 +271,31 @@ public class GetClueInfo
     public string userId;
     public string clueImgId;
     public string clueName;
+}
+
+[System.Serializable]
+public class CheckAnswerRequest
+{
+    public string userId;
+    public string killerId;
+    public string killerReason;
+    public string mode;   // "VERDICT"
+}
+
+[System.Serializable]
+public class CheckAnswerResponse
+{
+    public bool correct;
+    public string killerName;
+    public string caseSummary;
+}
+
+[System.Serializable]
+public class TalkNPCRequest
+{
+    public string userId;
+    public string playerInput;
+    public string npcId;
+    public string mode;          // "TALK"
+    public List<string> knownClues;
 }

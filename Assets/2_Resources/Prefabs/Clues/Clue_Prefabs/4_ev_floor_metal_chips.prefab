@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_floor_metal_chips
+  clueId: 4_ev_floor_metal_chips
   clueName: "\uAE08\uC18D \uBD80\uC2A4\uB7EC\uAE30 \uC54C\uAC31\uC774"
   description: "\uD68C\uC0C9 \uAE08\uC18D \uC870\uAC01\uB4E4\uC774 \uD769\uC5B4\uC838
     \uC788\uC74C. "
+  clueImage: {fileID: 0}
   spawnType: 0
   location: 
   isFind: 0

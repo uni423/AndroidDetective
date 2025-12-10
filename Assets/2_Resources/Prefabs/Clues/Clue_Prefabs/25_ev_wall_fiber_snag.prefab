@@ -223,10 +223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_wall_fiber_snag
+  clueId: 25_ev_wall_fiber_snag
   clueName: "\uBD99\uC5B4 \uC788\uB294 \uC9E7\uC740 \uC2E4\xB7\uC12C\uC720"
   description: "\uC9E7\uC740 \uC12C\uC720 2~3\uAC00\uB2E5\uC774 \uD45C\uBA74\uC5D0
     \uBD99\uC5B4 \uC788\uC74C."
+  clueImage: {fileID: 21300000, guid: c9441756ba38244498c72b6176311c2e, type: 3}
   spawnType: 1
   location: 
   isFind: 0

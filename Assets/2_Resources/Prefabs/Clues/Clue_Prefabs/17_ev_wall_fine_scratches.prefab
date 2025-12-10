@@ -223,10 +223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_wall_fine_scratches
+  clueId: 17_ev_wall_fine_scratches
   clueName: "\uC587\uAC8C \uAE01\uD78C \uC2A4\uD06C\uB798\uCE58"
   description: "\uAC00\uB294 \uC120\uD615 \uAE01\uD798\uC774 2\uC904\uB85C \uD3C9\uD589\uD558\uAC8C
     \uC874\uC7AC."
+  clueImage: {fileID: 21300000, guid: 4049910b4be563940ade6be7452a8c12, type: 3}
   spawnType: 1
   location: 
   isFind: 0

@@ -98,10 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_floor_cable_tie_snip
+  clueId: 15_ev_floor_cable_tie_snip
   clueName: "\uC798\uB9B0 \uCF00\uC774\uBE14 \uD0C0\uC774 \uC870\uAC01"
   description: "\uD1B1\uB2C8 \uB760\uAC00 \uBC18\uCBE4 \uB9D0\uB9B0 \uCC44 \uC798\uB824\uB098\uAC04
     \uCF00\uC774\uBE14 \uD0C0\uC774."
+  clueImage: {fileID: 21300000, guid: 51c522bb74487a644b76e3dca1507418, type: 3}
   spawnType: 0
   location: 
   isFind: 0

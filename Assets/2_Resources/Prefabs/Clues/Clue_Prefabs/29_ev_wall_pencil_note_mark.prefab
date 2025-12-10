@@ -223,10 +223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_wall_pencil_note_mark
+  clueId: 29_ev_wall_pencil_note_mark
   clueName: "\uC5F0\uD544\uB85C \uC4F1 \uC4F4 \uB099\uC11C \uD754\uC801"
   description: "\uD76C\uBBF8\uD55C \uAE00\uC790\xB7\uC22B\uC790, \uBD80\uBD84\uC801
     \uC9C0\uC6B0\uAC1C \uC790\uAD6D."
+  clueImage: {fileID: 21300000, guid: b2d80e2923738a84383770f78a2f905e, type: 3}
   spawnType: 1
   location: 
   isFind: 0

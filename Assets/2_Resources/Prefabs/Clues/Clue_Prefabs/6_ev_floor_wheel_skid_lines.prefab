@@ -223,9 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_floor_wheel_skid_lines
+  clueId: 6_ev_floor_wheel_skid_lines
   clueName: "\uBC14\uD034\uAC00 \uB04C\uB9B0 \uAC80\uC740 \uC904"
   description: "\uC881\uACE0 \uAE34 \uAC80\uC740 \uC120\uC774 2~3\uC904\uB85C \uC774\uC5B4\uC9D0."
+  clueImage: {fileID: 21300000, guid: b05f35e0132c9ac4ea77791103c27685, type: 3}
   spawnType: 0
   location: 
   isFind: 0

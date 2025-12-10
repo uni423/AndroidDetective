@@ -98,10 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_floor_rubber_band
+  clueId: 13_ev_floor_rubber_band
   clueName: "\uBC14\uB2E5\uC5D0 \uB5A8\uC5B4\uC9C4 \uACE0\uBB34\uC904"
   description: "\uB0A9\uC791\uD55C \uD0C0\uC6D0\uD615 \uACE0\uBB34 \uB9C1 \uD558\uB098\uAC00
     \uB193\uC5EC \uC788\uC74C."
+  clueImage: {fileID: 21300000, guid: d4ba43026862066438c4e7743823c0e1, type: 3}
   spawnType: 0
   location: 
   isFind: 0

@@ -7,7 +7,7 @@ public class ClueData
     public string id;
     public string name;
     public string description;
-    public string location;
+    public string locationRoomId;
 }
 public enum ClueSpawnType { Floor, Wall }
 
@@ -21,6 +21,8 @@ public class ClueMeta : MonoBehaviour
 
     [TextArea(2, 5)]
     public string description;
+
+    public Sprite clueImage;
 
     [Header("Spawn Type")]
     public ClueSpawnType spawnType = ClueSpawnType.Floor;
@@ -36,7 +38,7 @@ public class ClueMeta : MonoBehaviour
             id = string.IsNullOrEmpty(clueId) ? gameObject.name : clueId,
             name = string.IsNullOrEmpty(clueName) ? gameObject.name : clueName,
             description = description ?? string.Empty,
-            location = location ?? string.Empty
+            locationRoomId = location ?? string.Empty
         };
     }
 

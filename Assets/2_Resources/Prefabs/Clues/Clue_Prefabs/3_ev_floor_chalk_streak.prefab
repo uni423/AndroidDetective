@@ -170,10 +170,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be924d5bfc8423f439c65427d11fba38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clueId: ev_floor_chalk_streak
+  clueId: 3_ev_floor_chalk_streak
   clueName: "\uBD84\uD544 \uAC00\uB8E8 \uB04C\uB9B0 \uC790\uAD6D"
   description: "\uBC31\uC0C9 \uBD84\uB9D0\uC774 \uAE38\uAC8C \uC4F8\uB824 \uB9CC\uB4E0
     \uC120\uD615 \uD754\uC801."
+  clueImage: {fileID: 21300000, guid: ec5628dcc57419f46bf7b305df57228d, type: 3}
   spawnType: 0
   location: 
   isFind: 0
