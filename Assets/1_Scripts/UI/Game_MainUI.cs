@@ -24,9 +24,13 @@ public class Game_MainUI : UIBase
         {
             OnClickPauseButton();
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-
+            OnClickPublicView();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            OnClickSendResult();
         }
     }
 
@@ -36,5 +40,21 @@ public class Game_MainUI : UIBase
 
         UIManager.Instance.HideUI(UIState.Game_MainUI);
         UIManager.Instance.ShowUI(UIState.Game_PauseUI);
+    }
+
+    public void OnClickPublicView()
+    {
+        InGameManager.Instance.DoPause();
+
+        UIManager.Instance.HideUI(UIState.Game_MainUI);
+        UIManager.Instance.ShowUI(UIState.Game_PublicViewUI);
+    }
+
+    public void OnClickSendResult()
+    {
+        InGameManager.Instance.DoPause();
+
+        UIManager.Instance.HideUI(UIState.Game_MainUI);
+        UIManager.Instance.ShowUI(UIState.Game_SendResultUI);
     }
 }

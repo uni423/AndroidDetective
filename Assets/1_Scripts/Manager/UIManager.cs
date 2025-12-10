@@ -15,7 +15,11 @@ public enum UIState
     Game_CreateLoadingUI, 
     Game_QRUI,
     Game_MainUI,
-    Game_PauseUI, 
+    Game_PauseUI,
+    Game_PublicViewUI, 
+    Game_GetClueUI, 
+    Game_SendResultUI, 
+    Game_ResultUI, 
     Game_QuitUI,
 
 }
