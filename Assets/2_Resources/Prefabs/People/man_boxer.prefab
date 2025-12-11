@@ -2803,6 +2803,7 @@ GameObject:
   - component: {fileID: 8585035168141094614}
   - component: {fileID: 3683934565595356985}
   - component: {fileID: 4626804127026781336}
+  - component: {fileID: -8386710785592423010}
   m_Layer: 0
   m_Name: man_boxer
   m_TagString: Untagged
@@ -2874,6 +2875,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &-8386710785592423010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8819912672067302767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9110074152998709913
 GameObject:
   m_ObjectHideFlags: 0

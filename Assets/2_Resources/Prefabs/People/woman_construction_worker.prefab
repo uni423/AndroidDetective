@@ -674,6 +674,7 @@ GameObject:
   - component: {fileID: 8458293910663540268}
   - component: {fileID: 5670358760270837246}
   - component: {fileID: 2073905714655535544}
+  - component: {fileID: 5658329115763390787}
   m_Layer: 0
   m_Name: woman_construction_worker
   m_TagString: Untagged
@@ -745,6 +746,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &5658329115763390787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1902560445004585836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2022031236683616954
 GameObject:
   m_ObjectHideFlags: 0

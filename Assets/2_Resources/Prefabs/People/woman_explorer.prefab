@@ -1866,6 +1866,7 @@ GameObject:
   - component: {fileID: 3001175837727397744}
   - component: {fileID: 6029212010292070822}
   - component: {fileID: 1101975488833652688}
+  - component: {fileID: 8724855516200364894}
   m_Layer: 0
   m_Name: woman_explorer
   m_TagString: Untagged
@@ -1937,6 +1938,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &8724855516200364894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5616910471568737008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5700526802404815117
 GameObject:
   m_ObjectHideFlags: 0

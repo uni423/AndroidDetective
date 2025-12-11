@@ -2209,6 +2209,7 @@ GameObject:
   - component: {fileID: 2532218969890987043}
   - component: {fileID: 5047504878385500368}
   - component: {fileID: 3234432757650466895}
+  - component: {fileID: -3367923300024449876}
   m_Layer: 0
   m_Name: man_viking
   m_TagString: Untagged
@@ -2280,6 +2281,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &-3367923300024449876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7025850746680574578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7292818959473395145
 GameObject:
   m_ObjectHideFlags: 0

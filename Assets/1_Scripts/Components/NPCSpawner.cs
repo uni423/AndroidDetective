@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class NPCSpawner : MonoBehaviour
 {
-    [Header("소환할 NPC 프리팹 리스트")]
-    public List<GameObject> npcPrefabs = new List<GameObject>();
+    [Header("소환할 NPC 프리팹 리스트 (루트에 NpcSuspectMeta가 붙어있는 프리팹)")]
+    public List<NpcSuspectMeta> npcPrefabs = new List<NpcSuspectMeta>();
 
-    [Header("디버그용")]
-    public List<GameObject> spawnedNpcs = new List<GameObject>();
+    [Header("디버그용 - 현재 소환된 NPC들")]
+    public List<NpcSuspectMeta> spawnedNpcs = new List<NpcSuspectMeta>();
 
-    public void SpawnRandomNpcs(List<RoomMeta> roomMetas, int maxNpcCount = -1)
+    // 실제 구현부
+    public void SpawnRandomNpcs(List<RoomMeta> roomMetas, List<Suspect> suspectInfos, int maxNpcCount = -1)
     {
         // 기존에 소환된 NPC 정리 (필요 없으면 지우고 시작)
         ClearSpawnedNpcs();
@@ -46,6 +47,8 @@ public class NPCSpawner : MonoBehaviour
         int npcCount = (maxNpcCount > 0) ? maxNpcCount : npcPrefabs.Count;
         npcCount = Mathf.Min(npcCount, npcPrefabs.Count);      // 프리팹 수 이상은 안됨
         npcCount = Mathf.Min(npcCount, candidateRooms.Count);  // 방 개수 이상도 안됨 (한 방 1명 제한)
+        if (suspectInfos != null && suspectInfos.Count > 0)
+            npcCount = Mathf.Min(npcCount, suspectInfos.Count); // SuspectInfo 개수 이상도 안됨
 
         // 랜덤용
         System.Random rng = new System.Random();
@@ -54,7 +57,7 @@ public class NPCSpawner : MonoBehaviour
         Shuffle(candidateRooms, rng);
 
         // 프리팹 리스트도 복사해서 섞기
-        List<GameObject> shuffledPrefabs = new List<GameObject>(npcPrefabs);
+        List<NpcSuspectMeta> shuffledPrefabs = new List<NpcSuspectMeta>(npcPrefabs);
         Shuffle(shuffledPrefabs, rng);
 
         // 실제 소환
@@ -70,14 +73,16 @@ public class NPCSpawner : MonoBehaviour
             int spIdx = rng.Next(0, points.Length);
             Transform spawnPoint = points[spIdx];
 
-            GameObject prefab = shuffledPrefabs[i];
-            GameObject npc = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+            NpcSuspectMeta prefab = shuffledPrefabs[i];
+            NpcSuspectMeta npc = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+
+            // SuspectInfo가 있으면 이 시점에 넘겨준다
+            if (suspectInfos != null && i < suspectInfos.Count && suspectInfos[i] != null)
+            {
+                npc.Initialize(suspectInfos[i]);
+            }
 
             spawnedNpcs.Add(npc);
-
-            // 필요하면 여기서 NPC에 "자기 방 정보" 넘겨줄 수 있음
-            // var npcMeta = npc.GetComponent<NpcMeta>();
-            // if (npcMeta != null) npcMeta.currentRoomId = room.Id;
         }
     }
 
@@ -91,7 +96,7 @@ public class NPCSpawner : MonoBehaviour
         for (int i = 0; i < spawnedNpcs.Count; i++)
         {
             if (spawnedNpcs[i] != null)
-                Destroy(spawnedNpcs[i]);
+                Destroy(spawnedNpcs[i].gameObject);
         }
         spawnedNpcs.Clear();
     }

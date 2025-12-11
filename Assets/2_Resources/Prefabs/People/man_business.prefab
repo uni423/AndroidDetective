@@ -2547,6 +2547,7 @@ GameObject:
   - component: {fileID: 6812107212172130320}
   - component: {fileID: 6256567472337600948}
   - component: {fileID: 3518789358662585269}
+  - component: {fileID: -1289982570893962284}
   m_Layer: 0
   m_Name: man_business
   m_TagString: Untagged
@@ -2618,6 +2619,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &-1289982570893962284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8214505089139217242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8252842150624627801
 GameObject:
   m_ObjectHideFlags: 0

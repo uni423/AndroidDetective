@@ -457,6 +457,7 @@ GameObject:
   - component: {fileID: 389783431082551402}
   - component: {fileID: 626803435610787849}
   - component: {fileID: 1762893162302547937}
+  - component: {fileID: 4175795453953639502}
   m_Layer: 0
   m_Name: man_astronaut
   m_TagString: Untagged
@@ -528,6 +529,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &4175795453953639502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425348900863795473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1524334665020104977
 GameObject:
   m_ObjectHideFlags: 0

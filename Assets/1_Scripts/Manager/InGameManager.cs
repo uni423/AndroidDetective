@@ -1,6 +1,7 @@
 using Microsoft.Win32;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InGameManager : MonoBehaviour
@@ -70,7 +71,7 @@ public class InGameManager : MonoBehaviour
             onSuccess: (scenario) =>
             {
                 var roomMetas = LevelGenerator.GetPlacedRoomMetas();
-                npcSpawner.SpawnRandomNpcs(roomMetas);
+                npcSpawner.SpawnRandomNpcs(roomMetas, scenario.suspects.ToList());
                 
                 LastScenario = scenario;
                 ChangeInGameStep(InGameStep.QRConnectWait);
@@ -147,6 +148,9 @@ public class InGameManager : MonoBehaviour
     public void NPCChatStart(Suspect ChatSuspect)
     {
         CurChatNPC = ChatSuspect;
+        DoPause();
+        UIManager.Instance.HideUI(UIState.Game_MainUI);
+        UIManager.Instance.ShowUI(UIState.Game_NPCChatUI);
     }
 
     public void SendNPCChat(string SendMessageText)

@@ -88,10 +88,20 @@ public class PlayerController : MonoBehaviour
             // 2) 클릭 처리 (좌클릭 한 번)
             if (Input.GetMouseButtonDown(0))
             {
+                // (1) Clue 먼저 체크
                 var clue = hit.collider.GetComponentInParent<ClueMeta>();
                 if (clue != null && clue.isFind == false)
                 {
                     InGameManager.Instance.FindGetClue(clue);
+                    return;
+                }
+
+                // (2) NPC Suspect 체크
+                var suspect = hit.collider.GetComponentInParent<NpcSuspectMeta>();
+                if (suspect != null)
+                {
+                    InGameManager.Instance.NPCChatStart(suspect.data);
+                    return;
                 }
             }
         }

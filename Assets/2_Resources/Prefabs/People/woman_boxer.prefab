@@ -934,6 +934,7 @@ GameObject:
   - component: {fileID: 8024187355663531846}
   - component: {fileID: 9159758273263130531}
   - component: {fileID: 5241538759326728869}
+  - component: {fileID: -2172730728129433655}
   m_Layer: 0
   m_Name: woman_boxer
   m_TagString: Untagged
@@ -1005,6 +1006,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &-2172730728129433655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130186736277300266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3241442603531414082
 GameObject:
   m_ObjectHideFlags: 0

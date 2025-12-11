@@ -1775,6 +1775,7 @@ GameObject:
   - component: {fileID: 2162793418705943513}
   - component: {fileID: 399485362988103459}
   - component: {fileID: 3536744963803165894}
+  - component: {fileID: -1560805696674852440}
   m_Layer: 0
   m_Name: man_prehistoric
   m_TagString: Untagged
@@ -1846,6 +1847,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &-1560805696674852440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170667845086754374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6179433241923948344
 GameObject:
   m_ObjectHideFlags: 0

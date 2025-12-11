@@ -169,6 +169,7 @@ GameObject:
   - component: {fileID: 263765033526776590}
   - component: {fileID: 429270395298793619}
   - component: {fileID: 4297960568204052484}
+  - component: {fileID: -5144076517350340029}
   m_Layer: 0
   m_Name: woman_doctor
   m_TagString: Untagged
@@ -240,6 +241,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &-5144076517350340029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 468550241167682336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &904362250312055374
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class Game_MainUI : UIBase
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        transform.position = Vector3.zero;
     }
 
     public override void HideUI()

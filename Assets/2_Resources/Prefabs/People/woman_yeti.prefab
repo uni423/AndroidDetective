@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 8174861532828494568}
   - component: {fileID: 4717236519816800832}
   - component: {fileID: 5453901294326214112}
+  - component: {fileID: 2008799945718146616}
   m_Layer: 0
   m_Name: woman_yeti
   m_TagString: Untagged
@@ -569,6 +570,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &2008799945718146616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744063589232950042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1790382384772715239
 GameObject:
   m_ObjectHideFlags: 0

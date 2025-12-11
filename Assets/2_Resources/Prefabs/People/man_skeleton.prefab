@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: 4759450014819364029}
   - component: {fileID: 5710297805600152240}
   - component: {fileID: 3305806278112487566}
+  - component: {fileID: -6277357340818529855}
   m_Layer: 0
   m_Name: man_skeleton
   m_TagString: Untagged
@@ -657,6 +658,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
+--- !u!114 &-6277357340818529855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2675462957845537669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6c5399ee69fe44094b33b92803c046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    id: 
+    name: 
+    age: 0
+    job: 
+    role: 
+  onClicked:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2691188963757511798
 GameObject:
   m_ObjectHideFlags: 0
