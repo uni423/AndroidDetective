@@ -846,18 +846,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Catalog:
-  - {fileID: 11400000, guid: 3bccf4ca2447c2c4297d0cdf65abed86, type: 2}
-  - {fileID: 11400000, guid: f0a4078e2e5f2934aaec639864855527, type: 2}
-  - {fileID: 11400000, guid: d63f33d738b39884dad72885b91db72d, type: 2}
-  - {fileID: 11400000, guid: d05d335613ddc5e408d0fa75bff65adf, type: 2}
-  - {fileID: 11400000, guid: aa1eafdc117c6c4468f7677cdbcebaf8, type: 2}
-  - {fileID: 11400000, guid: 4693ab7f7d8d9584e8f6ea87088fffb3, type: 2}
-  - {fileID: 11400000, guid: d50358b84d7c4b7429153db9fec7feaa, type: 2}
-  - {fileID: 11400000, guid: 2053dfdb09c61d04bb4ee5a209b59f22, type: 2}
-  - {fileID: 11400000, guid: 2742860cd6e580943b01d3e5e0224f6a, type: 2}
-  - {fileID: 11400000, guid: 9b064dae259bf964e8aa84803344053e, type: 2}
-  - {fileID: 11400000, guid: 18c2d58bb9b68e445bdd52751a1dee32, type: 2}
-  - {fileID: 11400000, guid: 05e3f2711ff657d4f9828ed15f9cb558, type: 2}
+  - {fileID: 7064500728018510345, guid: 3681e1a623276ed44ac93c56420149ea, type: 3}
+  - {fileID: 8049873207296361331, guid: 542e895a43bc71e43972c3bf384b44ab, type: 3}
+  - {fileID: 2128503885324065172, guid: ef77f3dc6fd1a4f478b3bd574b6b31f1, type: 3}
+  - {fileID: 7064500728018510345, guid: 3681e1a623276ed44ac93c56420149ea, type: 3}
+  - {fileID: 8049873207296361331, guid: 542e895a43bc71e43972c3bf384b44ab, type: 3}
+  - {fileID: 2128503885324065172, guid: ef77f3dc6fd1a4f478b3bd574b6b31f1, type: 3}
+  - {fileID: 2317360338187236810, guid: 9e3f6aabe2e44c94b921b9d3b26ce68d, type: 3}
+  - {fileID: 3621522407090538215, guid: 8ff8ab9c4b1efac4eaebc0d0225bda65, type: 3}
+  - {fileID: 1764965846153926676, guid: c6b3b12e744f7b445823c8eae2b34593, type: 3}
   TargetRoomCount: 5
   GenerateOnStart: 1
   OverlapMask:
@@ -866,23 +863,11 @@ MonoBehaviour:
   BoundsPadding: 0.1
   Root: {fileID: 1237144583}
   HubCandidates:
-  - {fileID: 11400000, guid: fea312c266878a740b4c96ec5b70efb2, type: 2}
+  - {fileID: 1649838050901769772, guid: 329be751c8f5358488ac894adbd37795, type: 3}
   RequiredHubDoorCount: 4
   AllowedHubDoorTypes: 
-  RequiredHubTag: 
-  PreferMoreDoors: 1
-  PreferHigherHubAffinity: 1
   HubOnlyStar: 1
   MaxTriesPerSocket: 20
-  EndCaps:
-  - Type: 0
-    Prefab: {fileID: 1215956630339302880, guid: d4a29fcb1eaae584f9d9bebaaf992e55, type: 3}
-  - Type: 1
-    Prefab: {fileID: 1215956630339302880, guid: d4a29fcb1eaae584f9d9bebaaf992e55, type: 3}
-  - Type: 2
-    Prefab: {fileID: 1215956630339302880, guid: d4a29fcb1eaae584f9d9bebaaf992e55, type: 3}
-  - Type: 3
-    Prefab: {fileID: 1215956630339302880, guid: d4a29fcb1eaae584f9d9bebaaf992e55, type: 3}
 --- !u!4 &1633625316
 Transform:
   m_ObjectHideFlags: 0

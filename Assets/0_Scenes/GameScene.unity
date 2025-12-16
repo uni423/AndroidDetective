@@ -44399,18 +44399,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Catalog:
-  - {fileID: 2246685670067654089, guid: 1c57f9b78f368dc4c91eac6638e4f368, type: 3}
-  - {fileID: 8916353631709819415, guid: 51fe60cfe43fc624abc5554c0c267f57, type: 3}
-  - {fileID: -1673615433070595838, guid: 01a28fc8072398d40a813963c9e25f91, type: 3}
-  - {fileID: -1842028293668795222, guid: 9584853d7383feb44966407a7ffadc29, type: 3}
-  - {fileID: 8181200107643238669, guid: 996308f70fb16414d99467f0ca3c171e, type: 3}
-  - {fileID: -7429817509680828049, guid: afcd61f1550792243896c1a46e66af2a, type: 3}
-  - {fileID: -3910673016077014024, guid: 75ba8f4027a8667468d622c1ed73593f, type: 3}
-  - {fileID: 8436620924927878924, guid: b0f2fea921c933e448a3fbbc7ab26a2a, type: 3}
-  - {fileID: 3008605265293404183, guid: 4b5d9ec5ab5756e4b9960f528a90cc51, type: 3}
-  - {fileID: 6825123216877781882, guid: 3c2f4910b9f68a2439b4ff6f0e732ae1, type: 3}
-  - {fileID: -3232267118204644475, guid: 23ccb567afb04d74ea7112ef216df5d1, type: 3}
-  - {fileID: 6509116404604400947, guid: e784324fc6dd8264f81dcc163bb22c3c, type: 3}
+  - {fileID: 7064500728018510345, guid: 3681e1a623276ed44ac93c56420149ea, type: 3}
+  - {fileID: 7064500728018510345, guid: 3681e1a623276ed44ac93c56420149ea, type: 3}
+  - {fileID: 7064500728018510345, guid: 3681e1a623276ed44ac93c56420149ea, type: 3}
+  - {fileID: 7064500728018510345, guid: 3681e1a623276ed44ac93c56420149ea, type: 3}
+  - {fileID: 7064500728018510345, guid: 3681e1a623276ed44ac93c56420149ea, type: 3}
+  - {fileID: 7064500728018510345, guid: 3681e1a623276ed44ac93c56420149ea, type: 3}
+  - {fileID: 7064500728018510345, guid: 3681e1a623276ed44ac93c56420149ea, type: 3}
   TargetRoomCount: 5
   GenerateOnStart: 0
   OverlapMask:
@@ -44419,7 +44414,7 @@ MonoBehaviour:
   BoundsPadding: 0.1
   Root: {fileID: 1879455187}
   HubCandidates:
-  - {fileID: -6780003251155387942, guid: fa00f6801913a354097cedfcefe6fae6, type: 3}
+  - {fileID: 1649838050901769772, guid: 329be751c8f5358488ac894adbd37795, type: 3}
   RequiredHubDoorCount: 4
   AllowedHubDoorTypes: 
   HubOnlyStar: 1
