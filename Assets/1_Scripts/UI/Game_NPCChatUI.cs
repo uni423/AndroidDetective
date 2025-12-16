@@ -24,9 +24,23 @@ public class Game_NPCChatUI : UIBase
         }
     }
 
-    public void SetNPC(string NpcName, string NpcChat)
+    public void SetNPC(string NpcName)
     {
         this.NpcName.text = NpcName;
+
+        LoadingObj.SetActive(false);
+        this.NpcChat.text = "";
+        SendMessageText.text = "";
+
+        if (rotateTween != null && rotateTween.IsActive())
+        {
+            rotateTween.Kill();
+            rotateTween = null;
+        }
+    }
+
+    public void SetChat (string NpcChat)
+    {
         this.NpcChat.text = NpcChat;
 
         LoadingObj.SetActive(false);
@@ -48,6 +62,8 @@ public class Game_NPCChatUI : UIBase
         rotateTween = loadingImg.DORotate(new Vector3(0, 0, -360f), 1.5f, RotateMode.FastBeyond360).SetLoops(-1, LoopType.Restart);
 
         InGameManager.Instance.SendNPCChat(SendMessageText.text);
+
+        SendMessageText.text = "";
     }
 
     public void OnClick_Close()

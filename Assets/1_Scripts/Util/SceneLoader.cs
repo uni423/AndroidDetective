@@ -6,9 +6,7 @@ using UnityEngine.SceneManagement;
 public enum SceneType
 {
     TitleScene,
-    LoadingScene, 
     GameScene,
-    ResultScene, 
 }
 
 public static class SceneLoader

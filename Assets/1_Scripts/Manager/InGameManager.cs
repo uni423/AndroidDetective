@@ -151,6 +151,8 @@ public class InGameManager : MonoBehaviour
         DoPause();
         UIManager.Instance.HideUI(UIState.Game_MainUI);
         UIManager.Instance.ShowUI(UIState.Game_NPCChatUI);
+
+        (UIManager.Instance.uiDataLists[(int)UIState.Game_NPCChatUI] as Game_NPCChatUI).SetNPC(ChatSuspect.name);
     }
 
     public void SendNPCChat(string SendMessageText)
@@ -159,7 +161,7 @@ public class InGameManager : MonoBehaviour
             onSuccess: replyText =>
             {
                 Debug.Log("NPC 답변: " + replyText);
-                (UIManager.Instance.uiDataLists[(int)UIState.Game_NPCChatUI] as Game_NPCChatUI).SetNPC(CurChatNPC.name, replyText);
+                (UIManager.Instance.uiDataLists[(int)UIState.Game_NPCChatUI] as Game_NPCChatUI).SetChat(replyText);
             },
             onError: err => { Debug.LogError("NPC 대화 실패: " + err);} );
     }
