@@ -10212,7 +10212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa36cccbd503b543a1664f9512a32ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IP: localhost
+  IP: ldg8910.ipdisk.co.kr
   Port: 8080
   DefaultURL: 
   qrPageUrl: /phone/qr?userId=
